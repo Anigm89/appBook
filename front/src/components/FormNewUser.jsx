@@ -24,7 +24,7 @@ function FormNewUser(){
             console.log('user',user);
             navigate("/")
             setEmail('');
-            setPass('');
+            setPassword('');
             setError(null);
         })
         }

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { auth } from '../fb.js';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom';
+
  
 
 function FormLogIn(){
@@ -21,7 +22,7 @@ function FormLogIn(){
             console.log('user',user);
             navigate("/")
             setEmail('');
-            setPass('');
+            setPassword('');
             setError(null);
         })
         }
