@@ -5,12 +5,11 @@ import InputCreate from "../components/InputCreate.jsx";
 import FormLogIn from "../components/FormLogIn.jsx";
 import FormNewUser from '../components/FormNewUser.jsx';
 import { useState, useEffect } from "react";
-import { useUser } from "../hooks/UserContext.jsx";
 import ButtonLogout from "../components/ButtonLogout.jsx";
+
 
 function RoutesApp () {
 
-  const user = useUser();
 
     const [data, setData] = useState(null)
     const urlApi = 'http://localhost:3000'
@@ -20,7 +19,7 @@ function RoutesApp () {
         const response = await fetch(urlApi)
         const resData = await response.json()
         setData(resData)
-        console.log('x', resData)
+console.log('libros', resData)
         } catch (error) {
         console.log(error)
         }

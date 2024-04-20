@@ -1,14 +1,14 @@
 import RoutesApp from "./routes/RoutesApp";
 import './App.css'; // Archivo de estilos CSS
-import { UserProvider } from "./hooks/UserContext";
+import { AuthProvider } from "./hooks/AuthContext.jsx";
 
 const App = () => {
 
 return(
 
-  <UserProvider>
+  <AuthProvider>
      <RoutesApp />  
-  </UserProvider>
+  </AuthProvider>
 
 )
   

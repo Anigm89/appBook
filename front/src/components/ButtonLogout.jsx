@@ -1,4 +1,4 @@
-import { useUser } from "../hooks/UserContext.jsx";
+//import { Auth } from '../hooks/AuthContext.jsx'; 
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../fb.js';
 import { signOut } from "firebase/auth";
@@ -20,8 +20,10 @@ const ButtonLogout = () => {
   }
 
   return(
+    <>
     <button onClick={handleLogout}> Logout</button>
-
+    
+    </>
   )
 }
 export default ButtonLogout
