@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import { auth } from '../fb';
+import { auth } from '../fb.js';
 import { NavLink, useNavigate } from 'react-router-dom'
  
 
@@ -10,8 +10,30 @@ function FormLogIn(){
     const [ password, setPassword ] = useState('');
     const [ error, setError ] = useState(null);
     const navigate = useNavigate();
-    const urlApi = 'http://localhost:3000/create'
 
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        try{
+            await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+            const user = userCredential.user;
+            console.log('user',user);
+            navigate("/")
+            setEmail('');
+            setPass('');
+            setError(null);
+        })
+        }
+        catch(err){
+            console.log(err);
+            setError(err)
+        }
+    }
+
+
+/*
+    const urlApi = 'http://localhost:3000/create'
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -53,7 +75,7 @@ function FormLogIn(){
             setError(err)
         }
     }
-
+*/
 
     return(
         <>
