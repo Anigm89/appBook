@@ -1,4 +1,6 @@
 const Book = require('../models/Book');
+const dbConnection = require('../config/config');
+
 
 const BookController = {
     async ShowBooks (req, res) {
@@ -28,16 +30,16 @@ const BookController = {
             console.log(error)
         }
     },
-    async getTitle(req, res){
+    async getTitle(req, res) {
         try {
-            const title = decodeURIComponent(req.params.titulo).toLowerCase();       console.log(title)
-            const regex = new RegExp(title, 'i');
-            const book = await Book.find({titulo: regex});
-            res.json(book)
+            await Book.collection.createIndex({ titulo: "text" }); 
+            const title = req.params.titulo; 
+            const books = await Book.find({ $text: { $search: title, $caseSensitive: false } });
+            res.json(books);
         } catch (error) {
-            console.log(error)
+            res.status(500).json({ error: error.message });
         }
-    },
+    },    
     async getRelacionados(req, res){
         try {
             const { genero, autor, keywords } = req.body;
