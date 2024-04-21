@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function InputCreate () {
 
-    const [title, setTitle] = useState('');
+    const [titulo, setTitulo] = useState('');
     const [error, setError] = useState(null);
     const [newTask, setNewTask] = useState('');
 
@@ -12,18 +12,18 @@ function InputCreate () {
         e.preventDefault();
         setNewTask('');
         try{
-            if(title.trim() !== ''){
+            if(titulo.trim() !== ''){
                 const response = await fetch(urlApi, {
                     method: 'POST', 
                     headers: {
                     'Content-Type': 'application/json', 
                     },
-                    body: JSON.stringify({title}), 
+                    body: JSON.stringify({titulo}), 
                 });
                 if(response.ok){
                     const tarea = await response.json()    
-                    setNewTask(tarea.title);
-                    setTitle('')
+                    setNewTask(tarea.titulo);
+                    setTitulo('')
                     setError(null)
                 }
                 else{
@@ -43,7 +43,7 @@ function InputCreate () {
     return (
         <>
             <form onSubmit={send}>
-                <input type="text" placeholder="añade una tarea" value={title} onChange={e => setTitle(e.target.value)} />
+                <input type="text" placeholder="añade una tarea" value={titulo} onChange={e => setTitulo(e.target.value)} />
                 <button type="submit">Añadir</button>
             </form>
             <p>Se ha enviado la tarea: {newTask} </p>

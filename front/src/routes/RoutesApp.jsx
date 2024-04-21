@@ -4,15 +4,19 @@ import ItemDetailPage from "../components/ItemDetailPage.jsx";
 import InputCreate from "../components/InputCreate.jsx";
 import FormLogIn from "../components/FormLogIn.jsx";
 import FormNewUser from '../components/FormNewUser.jsx';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import ButtonLogout from "../components/ButtonLogout.jsx";
+import Profileuser from "../pages/ProfileUser.jsx";
+import { AuthContext } from "../hooks/AuthContext.jsx";
+
 
 
 function RoutesApp () {
 
+    const { usuario } = useContext(AuthContext);
 
     const [data, setData] = useState(null)
-    const urlApi = 'http://localhost:3000'
+    const urlApi = 'http://localhost:3000';
   
     const fetchData = async () => {
         try {
@@ -34,11 +38,18 @@ console.log('libros', resData)
       <div className="content">
         <header>
             <nav>
-            <Link to="/">Inicio</Link>
-            <Link to="/create">Add task</Link>
-            <Link to="/login">LogIn</Link>
-            <Link to="/registro">Registrarse</Link>
-            <ButtonLogout />
+              <Link to="/">Inicio</Link>
+              {!usuario ?
+              <>
+                <Link to="/login">LogIn</Link>
+                <Link to="/registro">Registrarse</Link>
+              </>
+              :
+              <>
+                <Link to="/create">Añadir libro</Link>
+                <ButtonLogout />
+              </>
+              }            
             </nav>
         </header>
         {data === null 
@@ -49,6 +60,8 @@ console.log('libros', resData)
             <Route path="/create" element={<InputCreate /> } />
             <Route path="/login" element={<FormLogIn />} />
             <Route path="/registro" element={<FormNewUser />} />
+            <Route path="/profile" element={<Profileuser />} />
+
 
             {data.map(item => (
               <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />

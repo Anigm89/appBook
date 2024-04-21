@@ -2,9 +2,16 @@
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../fb.js';
 import { signOut } from "firebase/auth";
+import { AuthContext } from "../hooks/AuthContext.jsx";
+import { useContext } from 'react';
+
+
 
 
 const ButtonLogout = () => {
+
+  const { usuario } = useContext(AuthContext);
+
 
     const navigate = useNavigate();
 
@@ -21,6 +28,7 @@ const ButtonLogout = () => {
 
   return(
     <>
+    <p>{usuario.email} </p>
     <button onClick={handleLogout}> Logout</button>
     
     </>

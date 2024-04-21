@@ -30,7 +30,7 @@ const BookController = {
     },
     async getTitle(req, res){
         try {
-            const title = decodeURIComponent(req.params.titulo).toLocaleLowerCase();       console.log(title)
+            const title = decodeURIComponent(req.params.titulo).toLowerCase();       console.log(title)
             const regex = new RegExp(title, 'i');
             const book = await Book.find({titulo: regex});
             res.json(book)
@@ -38,7 +38,6 @@ const BookController = {
             console.log(error)
         }
     },
-    
     async getRelacionados(req, res){
         try {
             const { genero, autor, keywords } = req.body;
@@ -72,6 +71,7 @@ const BookController = {
         try{
             const updateBook = await Book.findByIdAndUpdate(req.params._id,{
                 titulo: req.body.titulo,
+                subtitulo: req.body.subtitulo,
                 autor: req.body.autor,
                 sinopsis: req.body.sinopsis,
                 imagen: req.body.imagen,

@@ -5,6 +5,7 @@ const BooksSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Introduce el titulo del libro'],
     },
+    subtitulo: String,
     autor: {
         type: String,
         required: [true, 'Introduce el autor del libro'],
