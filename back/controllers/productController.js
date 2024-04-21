@@ -1,10 +1,12 @@
 const Book = require('../models/Book');
+const db = require('../config/config');
 
 const BookController = {
     async ShowBooks (req, res) {
         try{
-            const book = await Book.find();
-            res.json(book)
+            const connection = await db()
+            const [books] = await connection.query('SELECT * FROM libros');
+            res.json(books)
         }
         catch(error){
             console.log(error)
@@ -13,8 +15,9 @@ const BookController = {
     async getById(req, res) {
         try {
             const id = req.params._id;
-            const bookId = await Book.findById(id);
-            res.json(bookId)
+            const connection = await db();
+            const [bookId] = await connection.query(`SELECT * FROM libros where id = ${id}`);
+            res.json(bookId[0])
         } catch (error) {
             console.log(error)
         }
@@ -22,35 +25,30 @@ const BookController = {
     async getGenero(req, res){
         try {
             const genero = req.params.genero;
-            const books = await Book.find({genero: genero});
-            res.json(books)
+            const connection = await db();
+            const [books] = await connection.query(`SELECT * FROM libros WHERE genero like '%${genero}%'`);
+            res.json([books])
         } catch (error) {
             console.log(error)
         }
     },
     async getTitle(req, res) {
         try {
-            await Book.collection.createIndex({ titulo: "text" }); 
-            const title = req.params.titulo; 
-            const books = await Book.find({ $text: { $search: title, $caseSensitive: false } });
-            res.json(books);
+            const title = req.params.titulo;
+            const connection = await db();
+            const [titles] = await connection.query(`SELECT * FROM libros WHERE titulo like '%${title}%'`);
+            res.json([titles])
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            console.log(error)
         }
     },    
     async getRelacionados(req, res){
         try {
             const { genero, autor, keywords } = req.body;
-            
-            const searchQuery = {
-                $or: [
-                    { genero: { $in: genero } }, 
-                    { autor: autor }, 
-                    { keywords: { $in: keywords } } 
-                ]
-            };
 
-            const relacionados = await Book.find(searchQuery);
+            const connection = await db();
+            const searchQuery = `SELECT * FROM libros WHERE genero LIKE '%${genero}%' or autor LIKE '%${autor}%' or keywords like '%${keywords}%'`
+            const relacionados = await connection.query(searchQuery);
             res.json(relacionados);
             
         } catch (error) {
@@ -60,14 +58,21 @@ const BookController = {
     },    
     async create (req, res){
         try{
-            const newBook = await Book.create(req.body)
+            const {titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords} = req.body;
+            const connection = await db();
+            const insertQuery = `INSERT INTO libros (titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords) 
+                                VALUES ("${titulo}" ,"${subtitulo}","${autor}","${sinopsis}","${imagen}","${paginas}","${genero}","${keywords}")`;
+            const newBook = await connection.query(insertQuery)
             res.status(201).send(newBook)
         }
         catch(error){
             console.log(error)
+            res.status(500).json({ message: "Error creating book" });
         }
     },
-    async updateBook (req, res){
+
+    
+    /*async updateBook (req, res){
         try{
             const updateBook = await Book.findByIdAndUpdate(req.params._id,{
                 titulo: req.body.titulo,
@@ -100,7 +105,7 @@ const BookController = {
             console.log(error)
         }          
     }
-
+*/
 }
 
 module.exports = BookController;

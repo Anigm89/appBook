@@ -18,15 +18,15 @@ function FormNewUser(){
     const handleSubmit = async (e) =>{
         e.preventDefault();
         try{
-            await createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-            const user = userCredential.user;
+            const user = await createUserWithEmailAndPassword(auth, email, password)
+            //.then((userCredential) => {
+            //const user = userCredential.user;
             console.log('user',user);
-            navigate("/")
+            navigate("/profile")
             setEmail('');
             setPassword('');
             setError(null);
-        })
+       // })
         }
         catch(err){
             console.log(err);

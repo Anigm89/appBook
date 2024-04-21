@@ -1,15 +1,22 @@
-const mongoose = require('mongoose');
 require('dotenv').config();
+const mysql = require('mysql2/promise');
 
-const dbConnection = async () => {
-    try{
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log('Base de datos conectada con éxito');
-    }
-    catch(error){
-        console.error(error)
-        throw new Error('error en la conexión con la base de datos')
-    }
-}
+ async function db(){
+    try {
+        const db = await mysql.createConnection({
+            host     : 'localhost',
+            user     : 'root',
+            password : '',
+            port: 3306,
+            database: 'appbook'
+        });
 
-module.exports = dbConnection;
+        console.log('Se ha conectado con éxito a la base de datos');
+        return db;
+    } catch (error) {
+        console.error('Error connecting to the database:', error.message);
+        throw error;
+    }
+ } 
+module.exports = db;
+
