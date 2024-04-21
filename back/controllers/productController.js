@@ -1,6 +1,4 @@
 const Book = require('../models/Book');
-const dbConnection = require('../config/config');
-
 
 const BookController = {
     async ShowBooks (req, res) {
