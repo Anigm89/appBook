@@ -1,4 +1,3 @@
-const Book = require('../models/Book');
 const db = require('../config/config');
 
 const BookController = {
@@ -101,8 +100,101 @@ const BookController = {
         catch(error){
             console.log(error)
         }          
-    }
+    },
+    async createUser (req, res){
+        try{
+            const {email, uid} = req.body;
+            const connection = await db();
+            const insertQuery = `INSERT INTO usuarios (email, uid) VALUES ("${email}", "${uid}")`;
+            const newUser = await connection.query(insertQuery)
+            if (!newUser) {
+                console.log('Error al insertar el email en la base de datos:', error);
+                res.status(500).send('Error al guardar el email en la base de datos');
+            } else {
+                console.log('Email guardado en la base de datos:', email);
+                res.status(201).send('Email guardado correctamente');
+            }
+        }
+        catch(error){
+            console.log(error)
+            res.status(500).json({ message: "Error creating user" });
+        }
+    },
+    async leidos (req, res){
+        try{
+            const {id_libro, uid} = req.body;
+            const connection = await db();
+            const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
+            const leido = await connection.query(insertQuery)
+            if (!leido) {
+                console.log('Error al insertar el libro en la tabla leidos:', error);
+                res.status(500).send('Error al guardar el libro como leido en la base de datos');
+            } else {
+                console.log('libro guardado en la base de datos');
+                res.status(201).send('añadido como leido correctamente');
+            }
+        }
+        catch(error){
+            console.log(error)
+            res.status(500).json({ message: "Error al marcar como leido" });
+        }
+    },
+    async pendientes (req, res){
+        try{
+            const {id_libro, uid, actualizar} = req.body;
+            const connection = await db();
+            
+            if (actualizar) {
+               
+                const deleteQuery = `DELETE FROM pendientes WHERE id_libro = "${id_libro}" AND uid = "${uid}"`;
+                await connection.query(deleteQuery);
+    
+                const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
+                await connection.query(insertQuery);
+    
+                res.status(200).send('Libro movido de pendientes a leídos correctamente');
+            } 
+            else{
+                const insertQuery = `INSERT INTO pendientes (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
+                const pendientes = await connection.query(insertQuery);
 
+                if (!pendientes) {
+                    console.log('Error al insertar el libro en la tabla por leer:', error);
+                    res.status(500).send('Error al guardar el libro como pendiente en la base de datos');
+                } else {
+                    console.log('libro guardado en la base de datos');
+                    res.status(201).send('añadido como pendiente correctamente');
+                }
+            }
+        }
+        catch(error){
+            console.log(error)
+            res.status(500).json({ message: "Error al marcar como pendiente" });
+        }
+    },
+    async getLeidos (req, res) {
+        try{
+            const { uid } = req.body;
+            const connection = await db()
+            const [books] = await connection.query(`SELECT * FROM leidos WHERE uid = '${uid}'`);
+            res.json(books)
+        }
+        catch(error){
+            console.log(error)
+        }
+    },
+
+    async getPendientes (req, res) {
+        try{
+            const { uid } = req.body;
+            const connection = await db()
+            const [books] = await connection.query(`SELECT * FROM pendientes WHERE uid = '${uid}'`);
+            res.json(books)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
 }
 
 module.exports = BookController;

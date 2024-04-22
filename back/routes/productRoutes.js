@@ -12,6 +12,11 @@ router.post('/create', BookController.create);
 router.put('/edit/:_id', BookController.updateBook);
 router.delete('/delete/:_id', BookController.deleteBook);
 
+router.post('/createUser', BookController.createUser);
+router.post('/leidos', BookController.leidos);
+router.post('/pendientes', BookController.pendientes);
+router.get('/leidos', BookController.getLeidos);
+router.get('/pendientes', BookController.getPendientes);
 
 
 module.exports = router;

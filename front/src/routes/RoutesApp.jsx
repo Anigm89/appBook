@@ -64,7 +64,7 @@ console.log('libros', resData)
 
 
             {data.map(item => (
-              <Route key={item._id} path={`/${item._id}`} element={<ItemDetailPage item={item}/>} />
+              <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item}/>} />
             ))
             }
           </Routes>

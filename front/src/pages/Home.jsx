@@ -8,8 +8,8 @@ const Home = ({data}) => {
       <h2>Lista de datos</h2>
       <ul className="home">
         {data.map(item => (
-          <li key={item._id}>
-            <Link to={`/${item._id} `}>
+          <li key={item.id}>
+            <Link to={`/${item.id} `}>
               <>
               <div className="card">
                 <h2> {item.titulo} </h2>
