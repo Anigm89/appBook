@@ -70,20 +70,14 @@ const BookController = {
             res.status(500).json({ message: "Error creating book" });
         }
     },
-
-    
-    /*async updateBook (req, res){
+   
+    async updateBook (req, res){
         try{
-            const updateBook = await Book.findByIdAndUpdate(req.params._id,{
-                titulo: req.body.titulo,
-                subtitulo: req.body.subtitulo,
-                autor: req.body.autor,
-                sinopsis: req.body.sinopsis,
-                imagen: req.body.imagen,
-                paginas: req.body.paginas,
-                genero: req.body.genero,
-                keywords: req.body.keywords
-            }, { new: true });
+            const id = req.params._id;
+            const {titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords} = req.body;
+            const connection = await db();
+            const updateQuery = `UPDATE libros SET titulo ='${titulo}', subtitulo='${subtitulo}',autor='${autor}',sinopsis='${sinopsis}',imagen='${imagen}',paginas='${paginas}',genero='${genero}',keywords='${keywords}' WHERE id = ${id}`;
+            const updateBook = await connection.query(updateQuery)
             if(!updateBook) {
                 return res.status(404).json({ mensaje: 'No se ha podido actualizar' })
               } 
@@ -95,7 +89,10 @@ const BookController = {
     },
     async deleteBook(req, res){
         try{
-            const deletebook = await Book.findByIdAndDelete(req.params._id)
+            const id = req.params._id;
+            const connection = await db();
+            const deleteQuery = `DELETE FROM libros WHERE id = ${id} `;
+            const deletebook = await connection.query(deleteQuery)
         if(!deletebook){
             return res.status(404).json({ mensaje: "Libro no encontrado" });
         }
@@ -105,7 +102,7 @@ const BookController = {
             console.log(error)
         }          
     }
-*/
+
 }
 
 module.exports = BookController;
