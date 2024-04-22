@@ -13,7 +13,7 @@ const ButtonLogout = () => {
   const { usuario } = useContext(AuthContext);
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = () => { 
   

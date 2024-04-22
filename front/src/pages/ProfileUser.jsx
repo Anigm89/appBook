@@ -6,7 +6,7 @@ import { AuthContext } from "../hooks/AuthContext.jsx";
 function Profileuser(){
 
     const { usuario } = useContext(AuthContext);
-    const [nombre, setnombre] = useState(null)
+ /*   const [nombre, setnombre] = useState(null)
 
     useEffect(() => {
         
@@ -21,10 +21,11 @@ function Profileuser(){
         setnombre(null)
        
     }, [usuario]);
+*/
 
-
+//console.log('tokenFront', usuario.accessToken)
     return(
-        <p>perfil usu {nombre} </p>
+        <p>perfil usu {usuario.email} </p>
     )
 }
 

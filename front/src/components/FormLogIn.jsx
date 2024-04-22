@@ -17,67 +17,37 @@ function FormLogIn(){
     const handleSubmit = async (e) =>{
         e.preventDefault();
         try{
-            await signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
             console.log('user',user);
-            navigate("/profile")
-            setEmail('');
-            setPassword('');
-            setError(null);
-        })
-        }
-        catch(err){
-            console.log(err);
-            setError(err)
-        }
-    }
-
-
-/*
-    const urlApi = 'http://localhost:3000/create'
-
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        try{
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-           // .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log('user', user);
 
             const token = await user.getIdToken();
+            console.log('userTok', token)
 
-            console.log('token', token);
-
+            const urlApi= 'http://localhost:3000/create';
             const response = await fetch(urlApi, {
-                method: 'POST', 
+                method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${token}` // Aquí se incluye el token en el encabezado de autorización
-                }
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
             });
             if (response.ok) {
-                console.log('respo', response)
-                const data = await response.json();
-                console.log('Respuesta del backend:', data);
-                // Puedes hacer cualquier otra cosa con los datos recibidos del backend aquí
+                navigate("/profile");
+                setEmail('');
+                setPassword('');
+                setError(null);
             } else {
-                // Manejar errores de respuesta
-                throw new Error('Error en la respuesta del servidor');
+                setError('Error en la respuesta del servidor');
             }
-
-            setEmail('');
-            setPassword('');
-            setError(null);
-            navigate("/")
-        //})
+       
         }
         catch(err){
             console.log(err);
             setError(err)
         }
     }
-*/
 
     return(
         <>
