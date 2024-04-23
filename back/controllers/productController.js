@@ -1,10 +1,11 @@
-const db = require('../config/config');
+//const db = require('../config/config');
+const pool = require('../config/config');
 
 const BookController = {
     async ShowBooks (req, res) {
         try{
-            const connection = await db()
-            const [books] = await connection.query('SELECT * FROM libros');
+            //const connection = await db()
+            const [books] = await pool.query('SELECT * FROM libros');
             res.json(books)
         }
         catch(error){
@@ -14,8 +15,7 @@ const BookController = {
     async getById(req, res) {
         try {
             const id = req.params._id;
-            const connection = await db();
-            const [bookId] = await connection.query(`SELECT * FROM libros where id = ${id}`);
+            const [bookId] = await pool.query(`SELECT * FROM libros where id = ${id}`);
             res.json(bookId[0])
         } catch (error) {
             console.log(error)
@@ -24,8 +24,7 @@ const BookController = {
     async getGenero(req, res){
         try {
             const genero = req.params.genero;
-            const connection = await db();
-            const [books] = await connection.query(`SELECT * FROM libros WHERE genero like '%${genero}%'`);
+            const [books] = await pool.query(`SELECT * FROM libros WHERE genero like '%${genero}%'`);
             res.json([books])
         } catch (error) {
             console.log(error)
@@ -34,8 +33,7 @@ const BookController = {
     async getTitle(req, res) {
         try {
             const title = req.params.titulo;
-            const connection = await db();
-            const [titles] = await connection.query(`SELECT * FROM libros WHERE titulo like '%${title}%'`);
+            const [titles] = await pool.query(`SELECT * FROM libros WHERE titulo like '%${title}%'`);
             res.json([titles])
         } catch (error) {
             console.log(error)
@@ -45,9 +43,8 @@ const BookController = {
         try {
             const { genero, autor, keywords } = req.body;
 
-            const connection = await db();
             const searchQuery = `SELECT * FROM libros WHERE genero LIKE '%${genero}%' or autor LIKE '%${autor}%' or keywords like '%${keywords}%'`
-            const relacionados = await connection.query(searchQuery);
+            const relacionados = await pool.query(searchQuery);
             res.json(relacionados);
             
         } catch (error) {
@@ -58,10 +55,9 @@ const BookController = {
     async create (req, res){
         try{
             const {titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords} = req.body;
-            const connection = await db();
             const insertQuery = `INSERT INTO libros (titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords) 
                                 VALUES ("${titulo}" ,"${subtitulo}","${autor}","${sinopsis}","${imagen}","${paginas}","${genero}","${keywords}")`;
-            const newBook = await connection.query(insertQuery)
+            const newBook = await pool.query(insertQuery)
             res.status(201).send(newBook)
         }
         catch(error){
@@ -74,9 +70,8 @@ const BookController = {
         try{
             const id = req.params._id;
             const {titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords} = req.body;
-            const connection = await db();
             const updateQuery = `UPDATE libros SET titulo ='${titulo}', subtitulo='${subtitulo}',autor='${autor}',sinopsis='${sinopsis}',imagen='${imagen}',paginas='${paginas}',genero='${genero}',keywords='${keywords}' WHERE id = ${id}`;
-            const updateBook = await connection.query(updateQuery)
+            const updateBook = await pool.query(updateQuery)
             if(!updateBook) {
                 return res.status(404).json({ mensaje: 'No se ha podido actualizar' })
               } 
@@ -89,9 +84,8 @@ const BookController = {
     async deleteBook(req, res){
         try{
             const id = req.params._id;
-            const connection = await db();
             const deleteQuery = `DELETE FROM libros WHERE id = ${id} `;
-            const deletebook = await connection.query(deleteQuery)
+            const deletebook = await pool.query(deleteQuery)
         if(!deletebook){
             return res.status(404).json({ mensaje: "Libro no encontrado" });
         }
@@ -104,9 +98,8 @@ const BookController = {
     async createUser (req, res){
         try{
             const {email, uid} = req.body;
-            const connection = await db();
             const insertQuery = `INSERT INTO usuarios (email, uid) VALUES ("${email}", "${uid}")`;
-            const newUser = await connection.query(insertQuery)
+            const newUser = await pool.query(insertQuery)
             if (!newUser) {
                 console.log('Error al insertar el email en la base de datos:', error);
                 res.status(500).send('Error al guardar el email en la base de datos');
@@ -123,9 +116,8 @@ const BookController = {
     async leidos (req, res){
         try{
             const {id_libro, uid} = req.body;
-            const connection = await db();
             const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
-            const leido = await connection.query(insertQuery)
+            const leido = await pool.query(insertQuery)
             if (!leido) {
                 console.log('Error al insertar el libro en la tabla leidos:', error);
                 res.status(500).send('Error al guardar el libro como leido en la base de datos');
@@ -142,21 +134,20 @@ const BookController = {
     async pendientes (req, res){
         try{
             const {id_libro, uid, actualizar} = req.body;
-            const connection = await db();
             
             if (actualizar) {
                
                 const deleteQuery = `DELETE FROM pendientes WHERE id_libro = "${id_libro}" AND uid = "${uid}"`;
-                await connection.query(deleteQuery);
+                await pool.query(deleteQuery);
     
                 const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
-                await connection.query(insertQuery);
+                await pool.query(insertQuery);
     
                 res.status(200).send('Libro movido de pendientes a leídos correctamente');
             } 
             else{
                 const insertQuery = `INSERT INTO pendientes (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
-                const pendientes = await connection.query(insertQuery);
+                const pendientes = await pool.query(insertQuery);
 
                 if (!pendientes) {
                     console.log('Error al insertar el libro en la tabla por leer:', error);
@@ -175,8 +166,7 @@ const BookController = {
     async getLeidos (req, res) {
         try{
             const { uid } = req.body;
-            const connection = await db()
-            const [books] = await connection.query(`SELECT * FROM leidos WHERE uid = '${uid}'`);
+            const [books] = await pool.query(`SELECT * FROM leidos WHERE uid = '${uid}'`);
             res.json(books)
         }
         catch(error){
@@ -187,8 +177,7 @@ const BookController = {
     async getPendientes (req, res) {
         try{
             const { uid } = req.body;
-            const connection = await db()
-            const [books] = await connection.query(`SELECT * FROM pendientes WHERE uid = '${uid}'`);
+            const [books] = await pool.query(`SELECT * FROM pendientes WHERE uid = '${uid}'`);
             res.json(books)
         }
         catch(error){
