@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../fb.js';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ function FormLogIn(){
     const [ password, setPassword ] = useState('');
     const [ error, setError ] = useState(null);
     const navigate = useNavigate();
-    const { usuario } = useContext(AuthContext);
+    //const { usuario } = useContext(AuthContext);
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -21,27 +21,11 @@ function FormLogIn(){
             const user = userCredential.user;
             console.log('user',user);
 
-            const token = await user.getIdToken();
-            console.log('userTok', token)
-
-            const urlApi= 'http://localhost:3000/create';
-            const response = await fetch(urlApi, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            });
-            if (response.ok) {
-                navigate("/profile");
-                setEmail('');
-                setPassword('');
-                setError(null);
-            } else {
-                setError('Error en la respuesta del servidor');
-            }
-       
+            navigate("/profile");
+            setEmail('');
+            setPassword('');
+            setError(null);
+          
         }
         catch(err){
             console.log(err);
@@ -64,5 +48,6 @@ function FormLogIn(){
         </>
     )
 }
+
 
 export default FormLogIn;

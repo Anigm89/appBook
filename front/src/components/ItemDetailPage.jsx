@@ -7,7 +7,7 @@ const ItemDetailPage = ({item}) => {
 
   return (
     <>
-    <h1>mi uid {usuario.uid} idlibro:{item.id} </h1>
+    <h1>mi uid {/*usuario.uid*/} idlibro:{item.id} </h1>
       <h2>{item.titulo} </h2>
       <h3>{item.subtitulo} </h3>
       <h4>{item.autor} </h4>
