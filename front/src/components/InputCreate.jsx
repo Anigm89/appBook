@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../hooks/AuthContext.jsx";
+
 
 function InputCreate () {
+
+    const { usuario } = useContext(AuthContext);
 
     const [titulo, setTitulo] = useState('');
     const [error, setError] = useState(null);
     const [newTask, setNewTask] = useState('');
 
     const urlApi = 'http://localhost:3000/create'
+
+    const token =  usuario.accessToken;
+        console.log('userTok', token);
 
     const send = async (e) => {
         e.preventDefault();
@@ -16,7 +23,8 @@ function InputCreate () {
                 const response = await fetch(urlApi, {
                     method: 'POST', 
                     headers: {
-                    'Content-Type': 'application/json', 
+                      'Authorization': `Bearer ${token}`, 
+                      'Content-Type': 'application/json', 
                     },
                     body: JSON.stringify({titulo}), 
                 });
