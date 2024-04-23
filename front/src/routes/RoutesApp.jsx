@@ -30,7 +30,7 @@ console.log('libros', resData)
     
     useEffect(() => {
         fetchData()
-    }, [data])
+    }, [])
     
     return (
     <Router>

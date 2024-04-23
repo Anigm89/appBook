@@ -16,7 +16,18 @@ const ItemDetailPage = ({item}) => {
       <p>{item.paginas} </p>
       <p>{item.genero} </p>
       <p>{item.keywords} </p>
-
+      {usuario.email ? 
+       usuario.email === 'asd@asd.es' ?
+       <>
+        <div>
+          <button>Editar</button>
+          <button>Eliminar</button>
+        </div>
+       </>
+        :
+        null
+        :null
+      }
     </>
  
   );
