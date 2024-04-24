@@ -8,30 +8,16 @@ import { useState, useEffect, useContext } from "react";
 import ButtonLogout from "../components/ButtonLogout.jsx";
 import Profileuser from "../pages/ProfileUser.jsx";
 import { AuthContext } from "../hooks/AuthContext.jsx";
+import { LibrosContext } from "../hooks/LibrosContext.jsx";
 import { isLoggedIn } from "../components/AuhtService.js";
+import EditarLibro from "../components/EditarLibro.jsx";
 
 function RoutesApp () {
 
     const { usuario } = useContext(AuthContext);
+    const { libros } = useContext(LibrosContext);
+    console.log('lr',libros)
 
-    const [data, setData] = useState(null)
-    const urlApi = 'http://localhost:3000';
-  
-    const fetchData = async () => {
-        try {
-        const response = await fetch(urlApi)
-        const resData = await response.json()
-        setData(resData)
-console.log('libros', resData)
-        } catch (error) {
-        console.log(error)
-        }
-    }
-    
-    useEffect(() => {
-        fetchData()
-    }, [])
-    
     return (
     <Router>
       <div className="content">
@@ -51,32 +37,35 @@ console.log('libros', resData)
               }            
             </nav>
         </header>
-        {data === null 
+        {!libros 
         ? (<div>cargando...</div>) 
         : 
           <Routes>
-            <Route path="/" element={<Home data={data} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<FormLogIn />} />
             <Route path="/registro" element={<FormNewUser />} />
+            {libros.map(item => (
+              <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item}/>} />
+            ))
+            }
         
             {isLoggedIn() ? (
                 <>
                     <Route path="/create" element={<InputCreate />} />
+                    <Route path="/editBook/:id" element={<EditarLibro />} />
                     <Route path="/profile" element={<Profileuser />} />
                 </>
             ) : (
                 <>
                     <Route path="/create" element={<Navigate to="/login" />} />
+                    <Route path="/editBook/:id" element={<Navigate to="/login" />} />
                     <Route path="/profile" element={<Navigate to="/login" />} />
 
                 </>
 
             )}
 
-            {data.map(item => (
-              <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item}/>} />
-            ))
-            }
+           
           </Routes>
         }
         

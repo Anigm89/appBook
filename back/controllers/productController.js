@@ -14,7 +14,7 @@ const BookController = {
     },
     async getById(req, res) {
         try {
-            const id = req.params._id;
+            const id = req.params.id;
             const [bookId] = await pool.query(`SELECT * FROM libros where id = ${id}`);
             res.json(bookId[0])
         } catch (error) {
@@ -68,9 +68,9 @@ const BookController = {
    
     async updateBook (req, res){
         try{
-            const id = req.params._id;
+            const id = req.params.id;
             const {titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords} = req.body;
-            const updateQuery = `UPDATE libros SET titulo ='${titulo}', subtitulo='${subtitulo}',autor='${autor}',sinopsis='${sinopsis}',imagen='${imagen}',paginas='${paginas}',genero='${genero}',keywords='${keywords}' WHERE id = ${id}`;
+            const updateQuery = `UPDATE libros SET titulo ='${titulo}', subtitulo='${subtitulo}',autor='${autor}',sinopsis='${sinopsis}',imagen='${imagen}',paginas='${paginas}',genero='${genero}',keywords='${keywords}' WHERE id = '${id}'`;
             const updateBook = await pool.query(updateQuery)
             if(!updateBook) {
                 return res.status(404).json({ mensaje: 'No se ha podido actualizar' })
@@ -83,7 +83,7 @@ const BookController = {
     },
     async deleteBook(req, res){
         try{
-            const id = req.params._id;
+            const id = req.params.id;
             const deleteQuery = `DELETE FROM libros WHERE id = ${id} `;
             const deletebook = await pool.query(deleteQuery)
         if(!deletebook){

@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import { LibrosContext } from '../hooks/LibrosContext'
+import { useContext } from "react";
 
 
-const Home = ({data}) => {
+const Home = () => {
+
+  const { libros } = useContext(LibrosContext);
 
   return (
     <>
       <h2>Lista de datos</h2>
       <ul className="home">
-        {data.map(item => (
+        {libros.map(item => (
           <li key={item.id}>
             <Link to={`/${item.id} `}>
               <>

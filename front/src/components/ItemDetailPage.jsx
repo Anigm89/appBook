@@ -1,5 +1,6 @@
 import { AuthContext } from "../hooks/AuthContext.jsx";
-import { useContext ,useState} from "react";
+import { useContext} from "react";
+import { Link } from "react-router-dom";
 
 
 const ItemDetailPage = ({item}) => {
@@ -16,18 +17,15 @@ const ItemDetailPage = ({item}) => {
       <p>{item.paginas} </p>
       <p>{item.genero} </p>
       <p>{item.keywords} </p>
-      {usuario.email ? 
-       usuario.email === 'asd@asd.es' ?
-       <>
+
+      {usuario && usuario.email === 'admin@ejemplo.es' && (
         <div>
-          <button>Editar</button>
+          <Link to={`/editBook/${item.id}`}> <button>Editar</button></Link>
+
           <button>Eliminar</button>
         </div>
-       </>
-        :
-        null
-        :null
-      }
+      )}
+      
     </>
  
   );

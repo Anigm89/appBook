@@ -9,8 +9,8 @@ router.get('/genero/:genero', BookController.getGenero);
 router.get('/titulo/:titulo', BookController.getTitle);
 router.get('/relacionados', BookController.getRelacionados)
 router.post('/create',verifyUser, BookController.create);
-router.put('/edit/:_id', BookController.updateBook);
-router.delete('/delete/:_id', BookController.deleteBook);
+router.put('/edit/:id', verifyUser, BookController.updateBook);
+router.delete('/delete/:id', verifyUser, BookController.deleteBook);
 
 router.post('/createUser', BookController.createUser);
 router.post('/leidos', BookController.leidos);

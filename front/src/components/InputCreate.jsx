@@ -15,7 +15,7 @@ function InputCreate () {
     const [ genero, setGenero] = useState('');
     const [ keywords, setKeywords] = useState('');
     const [ error, setError] = useState(null);
-   // const [ newBook, setNewBook] = useState('');
+    const [ mensaje, setMensaje] = useState('')
 
     const urlApi = 'http://localhost:3000/create'
 
@@ -24,7 +24,6 @@ function InputCreate () {
 
     const send = async (e) => {
         e.preventDefault();
-       // setNewBook('');
         try{  
             const response = await fetch(urlApi, {
                 method: 'POST', 
@@ -36,9 +35,16 @@ function InputCreate () {
             });
             if(response.ok){
                 const libro = await response.json()    
-                //setNewBook(tarea.titulo);
-                setTitulo('')
-                setError(null)
+                setTitulo('');
+                setSubtitulo('');
+                setAutor('');
+                setSinopsis('');
+                setImagen('');
+                setGenero('');
+                setPaginas('');
+                setKeywords('')
+                setError(null);
+                setMensaje('Se ha añadido el libro')
             }
             else{
                 setError('algo ha fallado')
@@ -64,7 +70,7 @@ function InputCreate () {
                 <input type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
                 <label>Imagen:</label>
                 <input type="text" placeholder="subtitulo" value={imagen} onChange={e => setImagen(e.target.value)} />
-                <label>Páginas:</label>
+                <label>Nº de Páginas:</label>
                 <input type="number" placeholder="nº de páginas" value={paginas} onChange={e => setPaginas(e.target.value)} />
                 <label>Género:</label>
                 <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
@@ -73,7 +79,7 @@ function InputCreate () {
 
                 <button type="submit">Añadir</button>
             </form>
-            <p>Se ha enviado la tarea: {} </p>
+            <p> {mensaje} </p>
         </>
     )
 }

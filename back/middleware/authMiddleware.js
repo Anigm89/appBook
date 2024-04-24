@@ -10,7 +10,7 @@ const verifyUser = async (req, res, next) => {
       return res.redirect('/')
     }
     next();
-      console.log( 'token recibido,' , token)
+      console.log( 'token recibido,' )
   };
 
 module.exports = verifyUser;
