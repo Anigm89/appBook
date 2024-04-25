@@ -1,14 +1,17 @@
 import { AuthContext } from "../hooks/AuthContext.jsx";
 import { useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 
 
 const ItemDetailPage = ({item}) => {
   const { usuario } = useContext(AuthContext);
+  const { id } = useParams();
+
 
   return (
     <>
-    <h1>mi uid {/*usuario.uid*/} idlibro:{item.id} </h1>
+    <h1> idlibro:{item.id} </h1>
       <h2>{item.titulo} </h2>
       <h3>{item.subtitulo} </h3>
       <h4>{item.autor} </h4>
@@ -21,8 +24,7 @@ const ItemDetailPage = ({item}) => {
       {usuario && usuario.email === 'admin@ejemplo.es' && (
         <div>
           <Link to={`/editBook/${item.id}`}> <button>Editar</button></Link>
-
-          <button>Eliminar</button>
+          <Link to={`/deleteBook/${item.id}`}> <button>Eliminar</button></Link>
         </div>
       )}
       

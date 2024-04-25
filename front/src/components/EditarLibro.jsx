@@ -92,7 +92,7 @@ return(
         <label>Palabras Clave:</label>
         <input type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
 
-        <button type="submit">Añadir</button>
+        <button type="submit">Guardar</button>
     </form>
     <p> {mensaje} </p>
 </>

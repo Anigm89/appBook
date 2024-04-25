@@ -21,7 +21,7 @@ export const LibrosProvider = ({children}) => {
   
     useEffect(() => {
         fetchData()
-    }, [libros])
+    }, [])
     return(
         <LibrosContext.Provider value={{libros}} >
             {children}
