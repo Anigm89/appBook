@@ -1,10 +1,14 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../hooks/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
+import { LibrosContext } from '../hooks/LibrosContext';
+
 
 
 function InputCreate () {
 
     const { usuario } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [titulo, setTitulo] = useState('');
     const [ subtitulo, setSubtitulo ] = useState('');
@@ -15,51 +19,29 @@ function InputCreate () {
     const [ genero, setGenero] = useState('');
     const [ keywords, setKeywords] = useState('');
     const [ error, setError] = useState(null);
-    const [ mensaje, setMensaje] = useState('')
-
-    const urlApi = 'http://localhost:3000/create'
 
     const token =  usuario.accessToken;
         console.log('userTok', token);
 
-    const send = async (e) => {
+    const { addBook } = useContext(LibrosContext);
+
+    const handleSubmit = async (e) => {
+        
         e.preventDefault();
         try{  
-            const response = await fetch(urlApi, {
-                method: 'POST', 
-                headers: {
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/json', 
-                },
-                body: JSON.stringify({titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords}), 
-            });
-            if(response.ok){
-                const libro = await response.json()    
-                setTitulo('');
-                setSubtitulo('');
-                setAutor('');
-                setSinopsis('');
-                setImagen('');
-                setGenero('');
-                setPaginas('');
-                setKeywords('')
-                setError(null);
-                setMensaje('Se ha añadido el libro')
-            }
-            else{
-                setError('algo ha fallado')
-            }
+            await addBook(titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token);    
+            navigate('/')           
         }
         catch(err){
             console.log(err)
-            setError(err)
+            setError('Ha ocurrido un error', err)
         }
     }
     
     return (
         <>
             <h3>Añade un libro</h3>
-            <form onSubmit={send}>
+            <form onSubmit={handleSubmit}>
                 <label>Título:</label>
                 <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
                 <label>Subtítulo: </label>
@@ -79,7 +61,9 @@ function InputCreate () {
 
                 <button type="submit">Añadir</button>
             </form>
-            <p> {mensaje} </p>
+            
+            {error && <p>Error: {error}</p>}
+
         </>
     )
 }

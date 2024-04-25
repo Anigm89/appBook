@@ -1,13 +1,94 @@
 import { createContext, useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
+import { AuthContext } from "../hooks/AuthContext.jsx";
+
 
 export const LibrosContext = createContext();
 
 export const LibrosProvider = ({children}) => {
     const [libros, setLibros] = useState([]);
-    const urlApi = 'http://localhost:3000';
+    const [ error, setError] = useState(null);
+    const { id , token} = useParams();
 
+    const addBook = async (titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token) =>{
+        const urlCreate = 'http://localhost:3000/create';
+        
+        try{  
+            const response = await fetch(urlCreate, {
+                method: 'POST', 
+                headers: {
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify({titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords}), 
+            });
+            if(response.ok){
+                fetchData();
+                setError(null)
+            }
+        }
+        catch(err){
+            console.log(err)
+            setError(err)
+        }
+    }
     
+    const updateBook = async (id,titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token) => {
+        const urlUpdate = `http://localhost:3000/edit/${id}`;
+        try{  
+        const response = await fetch(urlUpdate, {
+            method: 'PUT', 
+            headers: {
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json', 
+            },
+            body: JSON.stringify({id,titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords}), 
+        });
+            if(response.ok){
+                fetchData();
+                setError(null)
+            }
+            else{
+                setError('algo ha fallado')
+            }
+        }
+        catch(err){
+            console.log(err)
+            setError(err)
+        }
+    }
+        
+    const eliminarLibro = async(id,token) => {
+        const urlDelete = `http://localhost:3000/delete/${id}`;
+
+            try{  
+                const confirmDelete = window.confirm("¿Está seguro de que desea eliminar este libro?");
+                if(confirmDelete){
+                    const response = await fetch(urlDelete, {
+                        method: 'DELETE', 
+                        headers: {
+                            'Authorization': `Bearer ${token}`, 
+                            'Content-Type': 'application/json', 
+                        }
+                    });
+                    if(response.ok){
+                        fetchData();
+                        setError(null)
+                    }
+                    else {
+                        setError('Error al eliminar el libro');
+                    }
+                }
+            }
+            catch(err){
+                console.log(err)
+                setError('Error al eliminar el libro', err);
+            }
+        }
+
     const  fetchData = async () =>{
+        const urlApi = 'http://localhost:3000';
+
         try{
             const response = await fetch(urlApi)
             const resData = await response.json();
@@ -22,8 +103,9 @@ export const LibrosProvider = ({children}) => {
     useEffect(() => {
         fetchData()
     }, [])
+
     return(
-        <LibrosContext.Provider value={{libros}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro}} >
             {children}
         </LibrosContext.Provider>
     )

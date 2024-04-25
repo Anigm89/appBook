@@ -11,7 +11,6 @@ import { AuthContext } from "../hooks/AuthContext.jsx";
 import { LibrosContext } from "../hooks/LibrosContext.jsx";
 import { isLoggedIn } from "../components/AuhtService.js";
 import EditarLibro from "../components/EditarLibro.jsx";
-import DeleteBook from "../components/DeleteBook.jsx";
 
 function RoutesApp () {
 
@@ -45,25 +44,22 @@ function RoutesApp () {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<FormLogIn />} />
             <Route path="/registro" element={<FormNewUser />} />
-            <Route path="/:id" element={<ItemDetailPage />} />
-
-            {/*libros.map(item => (
+           
+            {libros.map(item => (
               <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item}/>} />
             ))
-          */}
+          }
         
             {isLoggedIn() ? (
                 <>
                     <Route path="/create" element={<InputCreate />} />
                     <Route path="/editBook/:id" element={<EditarLibro />} />
-                    <Route path="/deleteBook/:id" element={<DeleteBook />} />
                     <Route path="/profile" element={<Profileuser />} />
                 </>
             ) : (
                 <>
                     <Route path="/create" element={<Navigate to="/login" />} />
                     <Route path="/editBook/:id" element={<Navigate to="/login" />} />
-                    <Route path="/deleteBook/:id" element={<Navigate to="/login" />} />
                     <Route path="/profile" element={<Navigate to="/login" />} />
 
                 </>

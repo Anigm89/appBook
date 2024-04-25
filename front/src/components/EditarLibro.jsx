@@ -1,7 +1,7 @@
 import { LibrosContext } from '../hooks/LibrosContext';
 import { AuthContext } from "../hooks/AuthContext.jsx";
 import { useContext, useState} from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 
 const EditarLibro = () => {
@@ -9,6 +9,8 @@ const EditarLibro = () => {
     const { libros } = useContext(LibrosContext);
     const { usuario } = useContext(AuthContext);
     const { id } = useParams();
+    const { updateBook } = useContext(LibrosContext);
+    const navigate = useNavigate();
 
     const libro = libros.find(libro => libro.id.toString() === id);
 
@@ -17,7 +19,7 @@ const EditarLibro = () => {
         return <p>El libro no existe</p>;
     }
     
-console.log('l',libro.id)
+console.log('l',libro.id + libro.titulo)
 
 
 const [titulo, setTitulo] = useState(libro.titulo);
@@ -29,40 +31,16 @@ const [ paginas, setPaginas] = useState(libro.paginas);
 const [ genero, setGenero] = useState(libro.genero);
 const [ keywords, setKeywords] = useState(libro.keywords);
 const [ error, setError] = useState(null);
-const [ mensaje, setMensaje] = useState('')
 
-const urlApi = `http://localhost:3000/edit/${id}`;
 
 const token =  usuario.accessToken;
     console.log('userTok', token);
 
-const updated = async (e) => {
+const handleUpdate = async (e) => {
     e.preventDefault();
     try{  
-        const response = await fetch(urlApi, {
-            method: 'PUT', 
-            headers: {
-                'Authorization': `Bearer ${token}`, 
-                'Content-Type': 'application/json', 
-            },
-            body: JSON.stringify({titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords}), 
-        });
-        if(response.ok){
-            const updatedBoook = await response.json()    
-            setTitulo('');
-            setSubtitulo('');
-            setAutor('');
-            setSinopsis('');
-            setImagen('');
-            setGenero('');
-            setPaginas('');
-            setKeywords('')
-            setError(null);
-            setMensaje('Se ha actualizado el libro correctamente')
-        }
-        else{
-            setError('algo ha fallado')
-        }
+        await updateBook(id, titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token);
+        navigate(`/${id}`)
     }
     catch(err){
         console.log(err)
@@ -74,7 +52,7 @@ const updated = async (e) => {
 return(
     <>
     <h3>Edita este libro</h3>
-    <form onSubmit={updated}>
+    <form onSubmit={handleUpdate}>
         <label>Título:</label>
         <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
         <label>Subtítulo: </label>
@@ -94,7 +72,8 @@ return(
 
         <button type="submit">Guardar</button>
     </form>
-    <p> {mensaje} </p>
+    {error && <p>Error: {error}</p>}
+
 </>
 )
 

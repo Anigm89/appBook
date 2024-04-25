@@ -1,13 +1,27 @@
 import { AuthContext } from "../hooks/AuthContext.jsx";
-import { useContext} from "react";
-import { Link, useParams } from "react-router-dom";
+import { useContext, useState} from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { LibrosContext } from '../hooks/LibrosContext';
 
 
 
 const ItemDetailPage = ({item}) => {
   const { usuario } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [error, setError] = useState(null); 
 
+
+  const { eliminarLibro } = useContext(LibrosContext);
+
+  const handleDelete = async () =>{
+    try {
+      await eliminarLibro(item.id, usuario.accessToken);
+      navigate('/');
+    } catch (error) {
+      setError('No se ha podido eliminar el libro');
+    }
+  }
 
   return (
     <>
@@ -24,7 +38,8 @@ const ItemDetailPage = ({item}) => {
       {usuario && usuario.email === 'admin@ejemplo.es' && (
         <div>
           <Link to={`/editBook/${item.id}`}> <button>Editar</button></Link>
-          <Link to={`/deleteBook/${item.id}`}> <button>Eliminar</button></Link>
+          <button onClick={handleDelete}>Eliminar</button>
+          {error && <p>Error: {error}</p>}
         </div>
       )}
       
