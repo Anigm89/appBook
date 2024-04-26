@@ -38,7 +38,7 @@ const ItemDetailPage = ({item}) => {
 
   const handlePendiente = async () => {
     try{
-      await MarcarPendiente(item.id, usuario.uid, usuario.accessToken);
+      await MarcarPendiente(item.id, usuario.uid);
       navigate('/profile');
     }
     catch (error) {

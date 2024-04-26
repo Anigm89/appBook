@@ -1,12 +1,12 @@
 import { useEffect, useContext ,useState} from "react";
-//import { AuthContext } from "../hooks/AuthContext.jsx";
-//import { LibrosContext } from '../hooks/LibrosContext';
+import { LibrosContext } from '../hooks/LibrosContext';
+
+
 
 function LibrosPendientes({uid}){
-    console.log('uidp', uid)
-   // const { usuario } = useContext(AuthContext);
-    //const { libros } = useContext(LibrosContext);
+  
     const [ pendientes, setPendientes] = useState([]);
+    const { MarcarPendiente } = useContext(LibrosContext);
 
     useEffect(() =>{
         const librosPendientes = async () => {
@@ -22,8 +22,19 @@ function LibrosPendientes({uid}){
             }
         }
         librosPendientes();
-    }, [uid])
+    }, [uid]);
 
+
+
+    const handleUpdate = async (id) => {
+        try{
+          await MarcarPendiente(id, uid, 'leido');
+          navigate('/profile');
+        }
+        catch (error) {
+          throw new Error ('No se ha podido añadir el libro a leídos');
+        }
+      }
     return(
         <>
         <div>
@@ -35,6 +46,7 @@ function LibrosPendientes({uid}){
                         <h4>{pendiente.subtitulo} </h4>
                         <p>{pendiente.autor} </p>
                         <img src={pendiente.imagen} alt={pendiente.titulo} />
+                        <button onClick={() => handleUpdate(pendiente.id_libro)}>Marcar como leído</button>
                     </li>
                     ))}
             </ul>)
