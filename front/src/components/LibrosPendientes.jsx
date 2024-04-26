@@ -22,7 +22,7 @@ function LibrosPendientes({uid}){
             }
         }
         librosPendientes();
-    }, [uid]);
+    }, []);
 
 
 

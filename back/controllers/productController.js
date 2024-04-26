@@ -149,10 +149,10 @@ const BookController = {
             
             if (estado == 'leido') {
                
-                const deleteQuery = `DELETE FROM pendientes WHERE id_libro = "${id_libro}" AND uid = "${uid}"`;
+                const deleteQuery = `DELETE FROM pendientes WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
                 await pool.query(deleteQuery);
     
-                const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
+                const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES (${id_libro}, "${uid}")`;
                 await pool.query(insertQuery);
     
                 res.status(200).send('Libro movido de pendientes a leídos correctamente');
