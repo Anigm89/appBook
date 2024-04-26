@@ -131,11 +131,22 @@ const BookController = {
             res.status(500).json({ message: "Error al marcar como leido" });
         }
     },
+    async getLeidos (req, res) {
+        try{
+            const { uid } = req.params;
+            const leidosquery = `SELECT b.*, u.uid, l.* FROM libros b, usuarios u, leidos l WHERE b.id = l.id_libro AND u.uid = l.uid AND u.uid = '${uid}'`;
+            const [books] = await pool.query(leidosquery);
+            res.json(books)
+        }
+        catch(error){
+            console.log(error)
+        }
+    },
     async pendientes (req, res){
         try{
-            const {id_libro, uid, actualizar} = req.body;
+            const {id_libro, uid} = req.body;
             
-            if (actualizar) {
+           /* if (actualizar) {
                
                 const deleteQuery = `DELETE FROM pendientes WHERE id_libro = "${id_libro}" AND uid = "${uid}"`;
                 await pool.query(deleteQuery);
@@ -146,6 +157,7 @@ const BookController = {
                 res.status(200).send('Libro movido de pendientes a leídos correctamente');
             } 
             else{
+                */
                 const insertQuery = `INSERT INTO pendientes (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
                 const pendientes = await pool.query(insertQuery);
 
@@ -156,23 +168,11 @@ const BookController = {
                     console.log('libro guardado en la base de datos');
                     res.status(201).send('añadido como pendiente correctamente');
                 }
-            }
+           // }
         }
         catch(error){
             console.log(error)
             res.status(500).json({ message: "Error al marcar como pendiente" });
-        }
-    },
-    async getLeidos (req, res) {
-        try{
-            const { uid } = req.params;
-            const leidosquery = `SELECT b.*, u.uid, l.* FROM libros b, usuarios u, leidos l WHERE b.id = l.id_libro AND u.uid = l.uid AND u.uid = '${uid}'`;
-            const [books] = await pool.query(leidosquery);
-            res.json(books)
-            console.log('uid', uid)
-        }
-        catch(error){
-            console.log(error)
         }
     },
 

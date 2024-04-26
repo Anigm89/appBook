@@ -1,6 +1,6 @@
-import { useEffect, useContext ,useState} from "react";
-import { AuthContext } from "../hooks/AuthContext.jsx";
-import { LibrosContext } from '../hooks/LibrosContext';
+//import { useEffect, useContext ,useState} from "react";
+//import { AuthContext } from "../hooks/AuthContext.jsx";
+//import { LibrosContext } from '../hooks/LibrosContext';
 
 function LibrosPendientes(){
 /*
@@ -44,6 +44,9 @@ function LibrosPendientes(){
         </>
     )
 */
+return(
+    <p>no</p>
+)
 }
 
 export default LibrosPendientes;

@@ -1,6 +1,6 @@
 import { useEffect, useContext ,useState, useRef} from "react";
 //import { AuthContext } from "../hooks/AuthContext.jsx";
-import LibrosPendientes from "../components/LibrosPendientes.jsx";
+//import LibrosPendientes from "../components/LibrosPendientes.jsx";
 
 
 function Profileuser({uid}){

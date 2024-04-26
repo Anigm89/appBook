@@ -34,7 +34,7 @@ const ItemDetailPage = ({item}) => {
       setError('No se ha podido añadir el libro a leídos');
     }
   }
-  const { MarcarPendiente } = useContext(LibrosContext);
+  /*const { MarcarPendiente } = useContext(LibrosContext);
 
   const handlePendiente = async () => {
     try{
@@ -44,7 +44,7 @@ const ItemDetailPage = ({item}) => {
     catch (error) {
       setError('No se ha podido añadir el libro a leídos');
     }
-  }
+  }*/
   return (
     <>
       <h2>{item.titulo} </h2>
@@ -67,7 +67,7 @@ const ItemDetailPage = ({item}) => {
         usuario ?
         (<>
         <button onClick={handleLeido}>Marcar como leído</button>
-        <button onClick={handlePendiente}>Por leer</button>
+        <button >Por leer</button>
         </>)
         :
         <></>
