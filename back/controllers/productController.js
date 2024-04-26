@@ -165,9 +165,11 @@ const BookController = {
     },
     async getLeidos (req, res) {
         try{
-            const { uid } = req.body;
-            const [books] = await pool.query(`SELECT * FROM leidos WHERE uid = '${uid}'`);
+            const { uid } = req.params;
+            const leidosquery = `SELECT b.*, u.uid, l.* FROM libros b, usuarios u, leidos l WHERE b.id = l.id_libro AND u.uid = l.uid AND u.uid = '${uid}'`;
+            const [books] = await pool.query(leidosquery);
             res.json(books)
+            console.log('uid', uid)
         }
         catch(error){
             console.log(error)

@@ -13,9 +13,9 @@ router.put('/edit/:id', verifyUser, BookController.updateBook);
 router.delete('/delete/:id', verifyUser, BookController.deleteBook);
 
 router.post('/createUser', BookController.createUser);
-router.post('/leidos', BookController.leidos);
+router.post('/leidos/',verifyUser, BookController.leidos);
 router.post('/pendientes', BookController.pendientes);
-router.get('/leidos', BookController.getLeidos);
+router.get('/leidos/:uid', BookController.getLeidos);
 router.get('/pendientes', BookController.getPendientes);
 
 

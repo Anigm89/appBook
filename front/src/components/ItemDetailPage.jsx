@@ -23,9 +23,30 @@ const ItemDetailPage = ({item}) => {
     }
   }
 
+  const { MarcarLeido } = useContext(LibrosContext);
+  
+  const handleLeido = async () => {
+    try{
+      await MarcarLeido(item.id, usuario.uid, usuario.accessToken);
+      navigate('/profile');
+    }
+    catch (error) {
+      setError('No se ha podido añadir el libro a leídos');
+    }
+  }
+  const { MarcarPendiente } = useContext(LibrosContext);
+
+  const handlePendiente = async () => {
+    try{
+      await MarcarPendiente(item.id, usuario.uid, usuario.accessToken);
+      navigate('/profile');
+    }
+    catch (error) {
+      setError('No se ha podido añadir el libro a leídos');
+    }
+  }
   return (
     <>
-    <h1> idlibro:{item.id} </h1>
       <h2>{item.titulo} </h2>
       <h3>{item.subtitulo} </h3>
       <h4>{item.autor} </h4>
@@ -42,7 +63,16 @@ const ItemDetailPage = ({item}) => {
           {error && <p>Error: {error}</p>}
         </div>
       )}
-      
+      {
+        usuario ?
+        (<>
+        <button onClick={handleLeido}>Marcar como leído</button>
+        <button onClick={handlePendiente}>Por leer</button>
+        </>)
+        :
+        <></>
+      }
+      {error && <p>Error: {error}</p>}
     </>
  
   );

@@ -52,9 +52,9 @@ function RoutesApp () {
         
             {isLoggedIn() ? (
                 <>
-                    <Route path="/create" element={<InputCreate />} />
-                    <Route path="/editBook/:id" element={<EditarLibro />} />
-                    <Route path="/profile" element={<Profileuser />} />
+                    <Route path="/create" element={<InputCreate token={usuario.accessToken} />} />
+                    <Route path="/editBook/:id" element={<EditarLibro token={usuario.accessToken} />} />
+                    <Route path="/profile" element={<Profileuser uid={usuario.uid} />} />
                 </>
             ) : (
                 <>

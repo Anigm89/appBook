@@ -1,13 +1,11 @@
 import { useContext, useState } from "react";
-import { AuthContext } from "../hooks/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
 
 
 
-function InputCreate () {
+function InputCreate ({token}) {
 
-    const { usuario } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [titulo, setTitulo] = useState('');
@@ -20,8 +18,6 @@ function InputCreate () {
     const [ keywords, setKeywords] = useState('');
     const [ error, setError] = useState(null);
 
-    const token =  usuario.accessToken;
-        console.log('userTok', token);
 
     const { addBook } = useContext(LibrosContext);
 
@@ -49,7 +45,7 @@ function InputCreate () {
                 <label>Autor:</label>
                 <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
                 <label>Sinopsis:</label>
-                <input type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
+                <textarea type="text" value={sinopsis} onChange={e => setSinopsis(e.target.value)} /> 
                 <label>Imagen:</label>
                 <input type="text" placeholder="subtitulo" value={imagen} onChange={e => setImagen(e.target.value)} />
                 <label>Nº de Páginas:</label>

@@ -1,14 +1,10 @@
 import { createContext, useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import { AuthContext } from "../hooks/AuthContext.jsx";
-
 
 export const LibrosContext = createContext();
 
-export const LibrosProvider = ({children}) => {
+export const LibrosProvider = ({children, id, token}) => {
     const [libros, setLibros] = useState([]);
     const [ error, setError] = useState(null);
-    const { id , token} = useParams();
 
     const addBook = async (titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token) =>{
         const urlCreate = 'http://localhost:3000/create';
@@ -31,7 +27,7 @@ export const LibrosProvider = ({children}) => {
             console.log(err)
             setError(err)
         }
-    }
+    };
     
     const updateBook = async (id,titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token) => {
         const urlUpdate = `http://localhost:3000/edit/${id}`;
@@ -56,7 +52,7 @@ export const LibrosProvider = ({children}) => {
             console.log(err)
             setError(err)
         }
-    }
+    };
         
     const eliminarLibro = async(id,token) => {
         const urlDelete = `http://localhost:3000/delete/${id}`;
@@ -84,8 +80,53 @@ export const LibrosProvider = ({children}) => {
                 console.log(err)
                 setError('Error al eliminar el libro', err);
             }
-        }
+        };
 
+        const MarcarLeido = async (id_libro, uid, token) =>{
+            const urlLeidos = 'http://localhost:3000/leidos';
+            
+            try{  
+                const response = await fetch(urlLeidos, {
+                    method: 'POST', 
+                    headers: {
+                        'Authorization': `Bearer ${token}`, 
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify({id_libro, uid}), 
+                });
+                if(response.ok){
+                    fetchData();
+                    setError(null)
+                }
+            }
+            catch(err){
+                console.log(err)
+                setError(err)
+            }
+        };
+        /*const MarcarPendiente = async (id_libro, uid, token) =>{
+            const urlPendientes = 'http://localhost:3000/pendientes';
+            
+            try{  
+                const response = await fetch(urlPendientes, {
+                    method: 'POST', 
+                    headers: {
+                        'Authorization': `Bearer ${token}`, 
+                        'Content-Type': 'application/json', 
+                    },
+                    body: JSON.stringify({id_libro, uid}), 
+                });
+                if(response.ok){
+                    fetchData();
+                    setError(null)
+                }
+            }
+            catch(err){
+                console.log(err)
+                setError(err)
+            }
+        };
+*/
     const  fetchData = async () =>{
         const urlApi = 'http://localhost:3000';
 
@@ -105,7 +146,7 @@ export const LibrosProvider = ({children}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido}} >
             {children}
         </LibrosContext.Provider>
     )

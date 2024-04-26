@@ -1,5 +1,5 @@
 //import { Auth } from '../hooks/AuthContext.jsx'; 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../fb.js';
 import { signOut } from "firebase/auth";
 import { AuthContext } from "../hooks/AuthContext.jsx";
@@ -28,7 +28,7 @@ const ButtonLogout = () => {
 
   return(
     <>
-    <p>{usuario.email} </p>
+    <Link to={'/profile'}>{usuario.email} </Link>
     <button onClick={handleLogout}> Logout</button>
     
     </>
