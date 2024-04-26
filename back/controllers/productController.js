@@ -178,8 +178,9 @@ const BookController = {
 
     async getPendientes (req, res) {
         try{
-            const { uid } = req.body;
-            const [books] = await pool.query(`SELECT * FROM pendientes WHERE uid = '${uid}'`);
+            const { uid } = req.params;
+            const pendientesquery = `SELECT b.*, u.uid, p.* FROM libros b, usuarios u, pendientes p WHERE b.id = p.id_libro AND u.uid = p.uid AND u.uid = '${uid}'`;
+            const [books] = await pool.query(pendientesquery);
             res.json(books)
         }
         catch(error){

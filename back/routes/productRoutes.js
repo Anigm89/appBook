@@ -16,7 +16,7 @@ router.post('/createUser', BookController.createUser);
 router.post('/leidos/',verifyUser, BookController.leidos);
 router.post('/pendientes',verifyUser, BookController.pendientes);
 router.get('/leidos/:uid', BookController.getLeidos);
-router.get('/pendientes/:uid', verifyUser,  BookController.getPendientes);
+router.get('/pendientes/:uid', BookController.getPendientes);
 
 
 module.exports = router;

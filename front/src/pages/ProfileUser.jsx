@@ -1,14 +1,10 @@
 import { useEffect, useContext ,useState, useRef} from "react";
-//import { AuthContext } from "../hooks/AuthContext.jsx";
-//import LibrosPendientes from "../components/LibrosPendientes.jsx";
+import LibrosPendientes from "../components/LibrosPendientes.jsx";
 
 
 function Profileuser({uid}){
 
-    //const { usuario } = useContext(AuthContext);
     const [ leidos, setLeidos] = useState([]);
-
-    //const uid = usuario.uid;
 
     useEffect(() =>{
         const librosLeidos = async () => {
@@ -51,6 +47,7 @@ function Profileuser({uid}){
             </div>
             <div>
                 <h1>Libros que quiero leer</h1>
+                <LibrosPendientes uid={uid} />
             </div>
         </>
       

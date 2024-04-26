@@ -104,7 +104,7 @@ export const LibrosProvider = ({children, id, token}) => {
                 setError(err)
             }
         };
-        /*const MarcarPendiente = async (id_libro, uid, token) =>{
+        const MarcarPendiente = async (id_libro, uid, token) =>{
             const urlPendientes = 'http://localhost:3000/pendientes';
             
             try{  
@@ -126,7 +126,7 @@ export const LibrosProvider = ({children, id, token}) => {
                 setError(err)
             }
         };
-*/
+
     const  fetchData = async () =>{
         const urlApi = 'http://localhost:3000';
 
@@ -146,7 +146,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente}} >
             {children}
         </LibrosContext.Provider>
     )
