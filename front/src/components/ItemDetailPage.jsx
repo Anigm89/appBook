@@ -1,5 +1,5 @@
 import { AuthContext } from "../hooks/AuthContext.jsx";
-import { useContext, useState} from "react";
+import { useContext, useState, useEffect} from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
 
@@ -10,9 +10,11 @@ const ItemDetailPage = ({item}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(null); 
+  const { eliminarLibro, MarcarLeido, MarcarPendiente, librosLeidos  } = useContext(LibrosContext);
+  const [isLeido, setIsLeido] = useState(false);
+  const [leidosData, setLeidosData] = useState([]);
 
 
-  const { eliminarLibro } = useContext(LibrosContext);
 
   const handleDelete = async () =>{
     try {
@@ -21,9 +23,7 @@ const ItemDetailPage = ({item}) => {
     } catch (error) {
       setError('No se ha podido eliminar el libro');
     }
-  }
-
-  const { MarcarLeido } = useContext(LibrosContext);
+  };
   
   const handleLeido = async () => {
     try{
@@ -33,8 +33,8 @@ const ItemDetailPage = ({item}) => {
     catch (error) {
       setError('No se ha podido añadir el libro a leídos');
     }
-  }
-  const { MarcarPendiente } = useContext(LibrosContext);
+  };
+  
 
   const handlePendiente = async () => {
     try{
@@ -45,6 +45,24 @@ const ItemDetailPage = ({item}) => {
       setError('No se ha podido añadir el libro a leídos');
     }
   }
+  useEffect(() => {
+    if (usuario) {
+      const getLeidos2 = async () => {
+        try {
+          const leidosData = await librosLeidos(usuario.uid);
+          const isRead = leidosData.some(libro => libro.id === item.id);
+          setIsLeido(isRead);
+        } catch (error) {
+          console.error('Error al obtener la lista de libros leídos:', error);
+        }
+      };
+  
+      getLeidos2();
+    }
+  }, [item.id, librosLeidos, usuario]);
+  
+  
+
   return (
     <>
       <h2>{item.titulo} </h2>
@@ -64,14 +82,13 @@ const ItemDetailPage = ({item}) => {
         </div>
       )}
       {
-        usuario ?
+       usuario && !isLeido && 
         (<>
-        <button onClick={handleLeido}>Marcar como leído</button>
-        <button onClick={handlePendiente}>Por leer</button>
+          <button onClick={handleLeido}>Marcar como leído</button>
+          
         </>)
-        :
-        <></>
       }
+      <button onClick={handlePendiente}>Por leer</button>
       {error && <p>Error: {error}</p>}
     </>
  
