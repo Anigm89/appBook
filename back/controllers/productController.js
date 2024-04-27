@@ -134,7 +134,7 @@ const BookController = {
     async getLeidos (req, res) {
         try{
             const { uid } = req.params;
-            const leidosquery = `SELECT b.*, u.uid, l.* FROM libros b, usuarios u, leidos l WHERE b.id = l.id_libro AND u.uid = l.uid AND u.uid = '${uid}'`;
+            const leidosquery = `SELECT b.*, u.uid, l.* FROM libros b, usuarios u, leidos l WHERE b.id = l.id_libro AND u.uid = l.uid AND u.uid = '${uid}' GROUP BY b.id`;
             const [books] = await pool.query(leidosquery);
             res.json(books)
         }
@@ -145,20 +145,7 @@ const BookController = {
     async pendientes (req, res){
         try{
             const {id_libro, uid} = req.body;
-           // console.log('estado', estado + id_libro + uid)
-            /*
-            if (estado == 'leido') {
-               
-                const deleteQuery = `DELETE FROM pendientes WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
-                await pool.query(deleteQuery);
-    
-                const insertQuery = `INSERT INTO leidos (id_libro, uid) VALUES (${id_libro}, "${uid}")`;
-                await pool.query(insertQuery);
-    
-                res.status(200).send('Libro movido de pendientes a leídos correctamente');
-            } 
-            else{
-             */   
+           
                 const insertQuery = `INSERT INTO pendientes (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
                 const pendientes = await pool.query(insertQuery);
 
@@ -169,7 +156,6 @@ const BookController = {
                     console.log('Error al insertar el libro en la tabla por leer:', result.error);
                     res.status(500).send('Error al guardar el libro como pendiente en la base de datos');
                   }
-           // }
         }
         catch(error){
             console.log(error)
@@ -183,6 +169,19 @@ const BookController = {
             const pendientesquery = `SELECT b.*, u.uid, p.* FROM libros b, usuarios u, pendientes p WHERE b.id = p.id_libro AND u.uid = p.uid AND u.uid = '${uid}'`;
             const [books] = await pool.query(pendientesquery);
             res.json(books)
+        }
+        catch(error){
+            console.log(error)
+        }
+    },
+    async deletePendiente (req, res){
+        try{
+            const {id_libro, uid} = req.params;
+            console.log(id_libro, uid)
+            const deleteQuery = `DELETE FROM pendientes WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
+            await pool.query(deleteQuery);
+            res.status(200).json('Libro movido de pendientes a leídos correctamente');
+            console.log('eliminaod ok')
         }
         catch(error){
             console.log(error)

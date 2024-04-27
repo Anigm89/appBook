@@ -27,7 +27,7 @@ const ItemDetailPage = ({item}) => {
   
   const handleLeido = async () => {
     try{
-      await MarcarLeido(item.id, usuario.uid, usuario.accessToken);
+      await MarcarLeido(item.id, usuario.uid);
       navigate('/profile');
     }
     catch (error) {

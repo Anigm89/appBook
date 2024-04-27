@@ -82,14 +82,14 @@ export const LibrosProvider = ({children, id, token}) => {
             }
         };
 
-        const MarcarLeido = async (id_libro, uid, token) =>{
+        const MarcarLeido = async (id_libro, uid) =>{
             const urlLeidos = 'http://localhost:3000/leidos';
             
             try{  
                 const response = await fetch(urlLeidos, {
                     method: 'POST', 
                     headers: {
-                        'Authorization': `Bearer ${token}`, 
+                        //'Authorization': `Bearer ${token}`, 
                         'Content-Type': 'application/json', 
                     },
                     body: JSON.stringify({id_libro, uid}), 
@@ -127,6 +127,31 @@ export const LibrosProvider = ({children, id, token}) => {
             }
         };
 
+        const EliminarPendiente = async(id,uid, token) => {
+            const urlDeleteP = `http://localhost:3000/deletePendiente/${id}/${uid}`;
+    
+                try{  
+                    const response = await fetch(urlDeleteP, {
+                        method: 'DELETE', 
+                        headers: {
+                            'Authorization': `Bearer ${token}`, 
+                            'Content-Type': 'application/json', 
+                        }
+                    });
+                    if(response.ok){
+                        fetchData();
+                        setError(null)
+                    }
+                    else {
+                        setError('Error al marcar como leído el libro');
+                    }
+                }
+                catch(err){
+                    console.log(err)
+                    setError('Error al eliminar de esta lista', err);
+                }
+            };
+
     const  fetchData = async () =>{
         const urlApi = 'http://localhost:3000';
 
@@ -146,7 +171,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente}} >
             {children}
         </LibrosContext.Provider>
     )
