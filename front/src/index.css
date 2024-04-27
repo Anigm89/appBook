@@ -12,6 +12,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+ul{
+  display: flex;
+  flex-wrap: wrap;
+
+}
 li{list-style: none;}
 a {
   font-weight: 500;
