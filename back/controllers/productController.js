@@ -177,11 +177,9 @@ const BookController = {
     async deletePendiente (req, res){
         try{
             const {id_libro, uid} = req.params;
-            console.log(id_libro, uid)
             const deleteQuery = `DELETE FROM pendientes WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
             await pool.query(deleteQuery);
             res.status(200).json('Libro movido de pendientes a leídos correctamente');
-            console.log('eliminaod ok')
         }
         catch(error){
             console.log(error)

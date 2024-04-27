@@ -20,8 +20,20 @@ function Profileuser({uid}){
             }
         }
         librosLeidos();
-    }, [uid]);
+    }, []);
 
+    const actualizarLeidos = async (uid) => {
+        try {
+            
+            const urlLeidos = `http://localhost:3000/leidos/${uid}`;
+            const response = await fetch(urlLeidos);
+            const resData = await response.json();
+            setLeidos(resData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
     return(
         <>
             <h3>Hola  </h3>
@@ -47,7 +59,7 @@ function Profileuser({uid}){
             </div>
             <div>
                 <h1>Libros que quiero leer</h1>
-                <LibrosPendientes uid={uid} />
+                <LibrosPendientes uid={uid} actualizarLeidos={actualizarLeidos} />
             </div>
         </>
       

@@ -3,7 +3,7 @@ import { LibrosContext } from '../hooks/LibrosContext';
 
 
 
-function LibrosPendientes({uid}){
+function LibrosPendientes({uid, actualizarLeidos}){
   
     const [ pendientes, setPendientes] = useState([]);
     const { MarcarLeido } = useContext(LibrosContext);
@@ -22,22 +22,28 @@ function LibrosPendientes({uid}){
             }
         }
         librosPendientes();
-
+        
     }, []);
 
     console.log('pendientes', pendientes)
 
 
-        const handleUpdate = async (id) => {
-            try {
-                await MarcarLeido(id, uid);
-                await EliminarPendiente(id, uid);
-            } catch (error) {
-                throw new Error ('No se ha podido añadir el libro a leídos');
-            }
-        }
+    const handleUpdate = async (id) => {
+        
+        try{
+          await MarcarLeido(id, uid);
+          await EliminarPendiente(id, uid);
+          setPendientes(prevPendientes => prevPendientes.filter(pendiente => pendiente.id_libro !== id));
+          actualizarLeidos(uid);
 
-       
+        }
+        catch (error) {
+          throw new Error ('No se ha podido añadir el libro a leídos');
+        }
+      }
+
+      
+
     return(
         <>
         <div>
