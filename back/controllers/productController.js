@@ -144,9 +144,9 @@ const BookController = {
     },
     async pendientes (req, res){
         try{
-            const {id_libro, uid, estado} = req.body;
-            console.log('estado', estado + id_libro + uid)
-            
+            const {id_libro, uid} = req.body;
+           // console.log('estado', estado + id_libro + uid)
+            /*
             if (estado == 'leido') {
                
                 const deleteQuery = `DELETE FROM pendientes WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
@@ -158,18 +158,18 @@ const BookController = {
                 res.status(200).send('Libro movido de pendientes a leídos correctamente');
             } 
             else{
-                
+             */   
                 const insertQuery = `INSERT INTO pendientes (id_libro, uid) VALUES ("${id_libro}", "${uid}")`;
                 const pendientes = await pool.query(insertQuery);
 
                 if (pendientes) {
-                    console.log('Libro guardado como pendiente en la base de datos');
+                    console.log('Libro guardado como pendiente en la base de datos', id_libro);
                     res.status(201).send('Libro añadido como pendiente correctamente');
                   } else {
                     console.log('Error al insertar el libro en la tabla por leer:', result.error);
                     res.status(500).send('Error al guardar el libro como pendiente en la base de datos');
                   }
-            }
+           // }
         }
         catch(error){
             console.log(error)

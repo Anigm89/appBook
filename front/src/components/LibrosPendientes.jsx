@@ -7,7 +7,6 @@ function LibrosPendientes({uid}){
   
     const [ pendientes, setPendientes] = useState([]);
     const { MarcarPendiente } = useContext(LibrosContext);
-
     useEffect(() =>{
         const librosPendientes = async () => {
             const urlPendientes= `http://localhost:3000/pendientes/${uid}`;
@@ -15,7 +14,6 @@ function LibrosPendientes({uid}){
                 const response = await fetch(urlPendientes);
                 const resData = await response.json();
                 setPendientes(resData)
-                console.log('pendientes', pendientes)
             }
             catch(error){
                 console.log(error)
@@ -24,6 +22,7 @@ function LibrosPendientes({uid}){
         librosPendientes();
     }, []);
 
+    console.log('pendientes', pendientes)
 
 
     const handleUpdate = async (id) => {

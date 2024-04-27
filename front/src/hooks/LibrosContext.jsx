@@ -104,17 +104,17 @@ export const LibrosProvider = ({children, id, token}) => {
                 setError(err)
             }
         };
-        const MarcarPendiente = async (id_libro, uid, estado) =>{
+        const MarcarPendiente = async (id_libro, uid, token) =>{
             const urlPendientes = 'http://localhost:3000/pendientes';
-            console.log('idl',id_libro)
+            console.log('idlpen',id_libro)
             try{  
                 const response = await fetch(urlPendientes, {
                     method: 'POST', 
                     headers: {
-                        //'Authorization': `Bearer ${token}`, 
+                        'Authorization': `Bearer ${token}`, 
                         'Content-Type': 'application/json', 
                     },
-                    body: JSON.stringify({id_libro, uid, estado}), 
+                    body: JSON.stringify({id_libro, uid}), 
                 });
                 if(response.ok){
                     fetchData();

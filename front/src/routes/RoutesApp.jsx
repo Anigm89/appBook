@@ -54,7 +54,7 @@ function RoutesApp () {
                 <>
                     <Route path="/create" element={<InputCreate token={usuario.accessToken} />} />
                     <Route path="/editBook/:id" element={<EditarLibro token={usuario.accessToken} />} />
-                    <Route path="/profile" element={<Profileuser uid={usuario.uid} />} />
+                    <Route path="/profile" element={<Profileuser uid={usuario.uid}  />} />
                 </>
             ) : (
                 <>
