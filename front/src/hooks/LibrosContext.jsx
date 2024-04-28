@@ -202,6 +202,20 @@ export const LibrosProvider = ({children, id, token}) => {
         }
     };
 
+    const Buscartitulo = async (titulo) =>{
+        const urltitulo = `http://localhost:3000/titulo/${titulo}`;
+        try{
+            const response = await fetch(urltitulo);
+            const data = await response.json();
+            console.log('data', data);
+            return data;
+        }
+        catch(error){
+            console.log(error)
+            console.log('error')
+        }
+    };
+
     const  fetchData = async () =>{
         const urlApi = 'http://localhost:3000';
 
@@ -210,6 +224,7 @@ export const LibrosProvider = ({children, id, token}) => {
             const resData = await response.json();
             setLibros(resData);
             console.log('libro', resData)
+            return resData;
         }
         catch(error){
             console.log(error)
@@ -221,7 +236,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes}} >
+        <LibrosContext.Provider value={{libros,fetchData, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes, Buscartitulo}} >
             {children}
         </LibrosContext.Provider>
     )

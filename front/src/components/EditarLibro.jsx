@@ -55,7 +55,7 @@ return(
         <label>Autor:</label>
         <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
         <label>Sinopsis:</label>
-        <input type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
+        <textarea type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
         <label>Imagen:</label>
         <input type="text" placeholder="imagen" value={imagen} onChange={e => setImagen(e.target.value)} />
         <label>Nº de Páginas:</label>
@@ -63,7 +63,7 @@ return(
         <label>Género:</label>
         <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
         <label>Palabras Clave:</label>
-        <input type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
+        <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
 
         <button type="submit">Guardar</button>
     </form>

@@ -53,7 +53,7 @@ function InputCreate ({token}) {
                 <label>Género:</label>
                 <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
                 <label>Palabras Clave:</label>
-                <input type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
+                <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
 
                 <button type="submit">Añadir</button>
             </form>

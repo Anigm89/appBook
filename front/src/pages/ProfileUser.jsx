@@ -34,7 +34,6 @@ import { LibrosContext } from '../hooks/LibrosContext';
     
     return(
         <>
-            <h3>Hola  </h3>
             <div>
                 <h1>Mis libros leídos</h1>
                 {leidos && leidos.length > 0 ?
@@ -44,9 +43,7 @@ import { LibrosContext } from '../hooks/LibrosContext';
                         leidos.map((leido, index) =>(
                             <li key={index}>
                                <Link to={`/${leido.id_libro}`}>
-                               <h3> {leido.titulo} </h3>
-                               <h4>{leido.subtitulo} </h4>
-                               <p>{leido.autor} </p>
+                               
                                <img src={leido.imagen} alt={leido.titulo} />
                                </Link>
                             </li>

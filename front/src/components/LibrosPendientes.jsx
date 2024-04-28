@@ -46,9 +46,7 @@ function LibrosPendientes({uid, actualizarLeidos}){
             (<ul>
                 {pendientes.map((pendiente, index) =>(
                     <li key={index}>
-                        <h3> {pendiente.titulo} </h3>
-                        <h4>{pendiente.subtitulo} </h4>
-                        <p>{pendiente.autor} </p>
+                       
                         <img src={pendiente.imagen} alt={pendiente.titulo} />
                         <button onClick={() => handleUpdate(pendiente.id_libro)}>Marcar como leído</button>
                     </li>

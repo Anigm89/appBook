@@ -1,29 +1,61 @@
 import { Link } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext'
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import BuscadorTitulo from "../components/BuscadorTitulo";
 
 
 const Home = () => {
 
-  const { libros } = useContext(LibrosContext);
+  //const { libros } = useContext(LibrosContext);
+  const { fetchData } = useContext(LibrosContext);
+  const [books, setBooks] = useState([]);
+  const [buscados, setBuscados]  = useState([]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+        try {
+            const books = await fetchData();
+            if (books) {
+                setBooks(books);
+            }
+        } catch (error) {
+            console.error("Error fetching leidos:", error);
+        }
+    };
+    fetchBooks();
+  }, []);
+
+
+  const onSearch = async () => {
+    try {
+      const searched = await fetchData();
+      setBuscados(searched);
+      setMostrarResultados(searchResults.length > 0); 
+    } catch (error) {
+        console.error("Error actualizando listado:", error);
+    }
+  }
+
+
 
   return (
     <>
-      <h2>Lista de datos</h2>
+      <BuscadorTitulo onSearch={onSearch} />
+      <h2>Lista de libros</h2>
       <ul className="home">
-        {libros.map(item => (
-          <li key={item.id}>
-            <Link to={`/${item.id} `}>
-              <>
-              <div className="card">
-                <h2> {item.titulo} </h2>
-                <p>{item.autor} </p>
-                <img src={item.imagen} alt={item.titulo} />
-              </div>
-              </>
-            </Link>
-          </li>
-        ))}
+        {books.map(item => (
+            <li key={item.id}>
+              <Link to={`/${item.id} `}>
+                <>
+                <div className="card">
+                  <h2> {item.titulo} </h2>
+                  <p>{item.autor} </p>
+                  <img src={item.imagen} alt={item.titulo} />
+                </div>
+                </>
+              </Link>
+            </li>
+          ))}
       </ul>
     </>
   )

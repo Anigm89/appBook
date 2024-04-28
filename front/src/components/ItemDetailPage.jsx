@@ -81,10 +81,7 @@ const ItemDetailPage = ({item}) => {
       const getPendientes = async () => {
         try {
           const pendientesData = await librosPendientes(usuario.uid);
-          console.log('pData:', pendientesData);
-          console.log('item.id:', item.id);
           const isPending = pendientesData.some(libro => libro.id_libro === item.id);
-          console.log('isPen:', isPending);
           setIsPendiente(isPending);
         } catch (error) {
           console.error('Error al obtener la lista de libros pendientes:', error);

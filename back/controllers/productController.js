@@ -33,7 +33,7 @@ const BookController = {
     async getTitle(req, res) {
         try {
             const title = req.params.titulo;
-            const [titles] = await pool.query(`SELECT * FROM libros WHERE titulo like '%${title}%'`);
+            const [titles] = await pool.query(`SELECT * FROM libros WHERE titulo like '%${title}%' OR subtitulo like '%${title}%'`);
             res.json([titles])
         } catch (error) {
             console.log(error)
