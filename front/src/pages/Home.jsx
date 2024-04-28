@@ -6,7 +6,6 @@ import BuscadorTitulo from "../components/BuscadorTitulo";
 
 const Home = () => {
 
-  //const { libros } = useContext(LibrosContext);
   const { fetchData } = useContext(LibrosContext);
   const [books, setBooks] = useState([]);
   const [buscados, setBuscados]  = useState([]);
@@ -25,37 +24,45 @@ const Home = () => {
     fetchBooks();
   }, []);
 
-
-  const onSearch = async () => {
-    try {
-      const searched = await fetchData();
-      setBuscados(searched);
-      setMostrarResultados(searchResults.length > 0); 
-    } catch (error) {
-        console.error("Error actualizando listado:", error);
-    }
-  }
-
-
+  const onSearch = async (searchResults) => {
+    setBuscados(searchResults);
+  };
+  const handleReset = () => {
+    setBuscados([]);
+  };
 
   return (
     <>
-      <BuscadorTitulo onSearch={onSearch} />
+      <BuscadorTitulo onSearch={onSearch} mostrarResultados={buscados.length > 0} />
       <h2>Lista de libros</h2>
+     
       <ul className="home">
-        {books.map(item => (
+      {buscados.length > 0 ? (
+          buscados.map(item => (
             <li key={item.id}>
-              <Link to={`/${item.id} `}>
-                <>
+              <Link to={`/${item.id}`}>
                 <div className="card">
-                  <h2> {item.titulo} </h2>
-                  <p>{item.autor} </p>
+                  <h2>{item.titulo}</h2>
+                  <p>{item.autor}</p>
                   <img src={item.imagen} alt={item.titulo} />
                 </div>
-                </>
+              </Link>
+              <button onClick={handleReset}>Reset</button>
+            </li>
+          ))
+        ) : (
+          books.map(item => (
+            <li key={item.id}>
+              <Link to={`/${item.id}`}>
+                <div className="card">
+                  <h2>{item.titulo}</h2>
+                  <p>{item.autor}</p>
+                  <img src={item.imagen} alt={item.titulo} />
+                </div>
               </Link>
             </li>
-          ))}
+          ))
+        )}
       </ul>
     </>
   )
