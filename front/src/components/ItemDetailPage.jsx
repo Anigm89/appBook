@@ -10,9 +10,10 @@ const ItemDetailPage = ({item}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(null); 
-  const { eliminarLibro, MarcarLeido, MarcarPendiente, librosLeidos  } = useContext(LibrosContext);
+  const { eliminarLibro, MarcarLeido, MarcarPendiente, librosLeidos, eliminarLeido  } = useContext(LibrosContext);
   const [isLeido, setIsLeido] = useState(false);
   const [leidosData, setLeidosData] = useState([]);
+  const [leidos, setLeidos] = useState([])
 
 
 
@@ -50,7 +51,10 @@ const ItemDetailPage = ({item}) => {
       const getLeidos2 = async () => {
         try {
           const leidosData = await librosLeidos(usuario.uid);
-          const isRead = leidosData.some(libro => libro.id === item.id);
+          console.log('leidosData:', leidosData);
+          console.log('item.id:', item.id);
+          const isRead = leidosData.some(libro => libro.id_libro === item.id);
+          console.log('isRead:', isRead);
           setIsLeido(isRead);
         } catch (error) {
           console.error('Error al obtener la lista de libros leídos:', error);
@@ -60,12 +64,21 @@ const ItemDetailPage = ({item}) => {
       getLeidos2();
     }
   }, [item.id, librosLeidos, usuario]);
+
+  const handlequitar = async () => {
+    try{
+      await eliminarLeido(item.id, usuario.uid, usuario.accessToken);
+    }
+    catch (error) {
+      setError('No se ha podido quitar de leídos');
+    }
+  }
   
   
 
   return (
     <>
-      <h2>{item.titulo} </h2>
+      <h2>{item.titulo}{item.id} </h2>
       <h3>{item.subtitulo} </h3>
       <h4>{item.autor} </h4>
       <img src={item.imagen} alt="" />
@@ -82,13 +95,17 @@ const ItemDetailPage = ({item}) => {
         </div>
       )}
       {
-       usuario && !isLeido && 
+       usuario && !isLeido ?
         (<>
           <button onClick={handleLeido}>Marcar como leído</button>
-          
+          <button onClick={handlePendiente}>Por leer</button>
         </>)
+        :
+        <>
+          <div><p>leído</p></div>
+          <button onClick={() => handlequitar(item.id)}>Quitar de leídos</button>
+        </>
       }
-      <button onClick={handlePendiente}>Por leer</button>
       {error && <p>Error: {error}</p>}
     </>
  

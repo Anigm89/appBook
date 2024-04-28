@@ -184,6 +184,17 @@ const BookController = {
         catch(error){
             console.log(error)
         }
+    },
+    async deleteLeido (req, res){
+        try{
+            const {id_libro, uid} = req.params;
+            const deleteQuery = `DELETE FROM leidos WHERE id_libro = ${id_libro} AND uid = "${uid}"`;
+            await pool.query(deleteQuery);
+            res.status(200).json('Libro quitado de leídos correctamente');
+        }
+        catch(error){
+            console.log(error)
+        }
     }
 }
 

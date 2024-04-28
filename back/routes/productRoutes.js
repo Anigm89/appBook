@@ -18,6 +18,7 @@ router.post('/pendientes', verifyUser, BookController.pendientes);
 router.get('/leidos/:uid', BookController.getLeidos);
 router.get('/pendientes/:uid', BookController.getPendientes);
 router.delete('/deletePendiente/:id_libro/:uid', BookController.deletePendiente)
+router.delete('/deleteLeido/:id_libro/:uid', verifyUser, BookController.deleteLeido)
 
 
 module.exports = router;

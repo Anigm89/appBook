@@ -145,7 +145,7 @@ export const LibrosProvider = ({children, id, token}) => {
                     setError(null)
                 }
                 else {
-                    setError('Error al marcar como leído el libro');
+                    setError('Error al marcar como pendiente el libro');
                 }
             }
             catch(err){
@@ -164,6 +164,30 @@ export const LibrosProvider = ({children, id, token}) => {
         catch(error){
             console.log(error)
         }
+    };
+
+    const eliminarLeido = async(id,uid, token) => {
+        const urlDeleteL = `http://localhost:3000/deleteLeido/${id}/${uid}`;
+            try{  
+                const response = await fetch(urlDeleteL, {
+                    method: 'DELETE', 
+                    headers: {
+                        'Authorization': `Bearer ${token}`, 
+                        'Content-Type': 'application/json', 
+                    }
+                });
+                if(response.ok){
+                    fetchData();
+                    setError(null)
+                }
+                else {
+                    setError('Error al eliminar leído ');
+                }
+            }
+            catch(err){
+                console.log(err)
+                setError('Error al eliminar de esta lista', err);
+            }
     };
        
 
@@ -186,7 +210,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido}} >
             {children}
         </LibrosContext.Provider>
     )
