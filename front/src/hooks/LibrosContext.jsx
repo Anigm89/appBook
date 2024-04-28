@@ -189,7 +189,18 @@ export const LibrosProvider = ({children, id, token}) => {
                 setError('Error al eliminar de esta lista', err);
             }
     };
-       
+    
+    const librosPendientes = async (uid) => {
+        const urlPendientes= `http://localhost:3000/pendientes/${uid}`;
+        try{
+            const response = await fetch(urlPendientes);
+            const resData = await response.json();
+            return resData;
+        }
+        catch(error){
+            console.log(error)
+        }
+    };
 
     const  fetchData = async () =>{
         const urlApi = 'http://localhost:3000';
@@ -210,7 +221,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido}} >
+        <LibrosContext.Provider value={{libros, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes}} >
             {children}
         </LibrosContext.Provider>
     )

@@ -6,26 +6,21 @@ import { LibrosContext } from '../hooks/LibrosContext';
 function LibrosPendientes({uid, actualizarLeidos}){
   
     const [ pendientes, setPendientes] = useState([]);
-    const { MarcarLeido } = useContext(LibrosContext);
-    const { EliminarPendiente } = useContext(LibrosContext);
+    const { librosPendientes, MarcarLeido, EliminarPendiente, librosLeidos } = useContext(LibrosContext);
 
     useEffect(() =>{
-        const librosPendientes = async () => {
-            const urlPendientes= `http://localhost:3000/pendientes/${uid}`;
-            try{
-                const response = await fetch(urlPendientes);
-                const resData = await response.json();
-                setPendientes(resData)
-            }
-            catch(error){
-                console.log(error)
+        const fetchPendientes = async () => {
+            try {
+                const pendientes = await librosPendientes(uid);
+                if (pendientes) {
+                    setPendientes(pendientes);
+                }
+            } catch (error) {
+                console.error("Error al traer libros por leer:", error);
             }
         }
-        librosPendientes();
-        
-    }, []);
-
-    console.log('pendientes', pendientes)
+        fetchPendientes();
+    }, [uid]);
 
 
     const handleUpdate = async (id) => {
@@ -34,7 +29,7 @@ function LibrosPendientes({uid, actualizarLeidos}){
           await MarcarLeido(id, uid);
           await EliminarPendiente(id, uid);
           setPendientes(prevPendientes => prevPendientes.filter(pendiente => pendiente.id_libro !== id));
-          actualizarLeidos(uid);
+          await actualizarLeidos();
 
         }
         catch (error) {

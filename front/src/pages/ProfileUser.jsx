@@ -23,22 +23,15 @@ import { LibrosContext } from '../hooks/LibrosContext';
     fetchLeidos();
     }, [uid]);
          
-    console.log('leidoddd', leidos)
-
-  
-/*
-    const actualizarLeidos = async (uid) => {
+    const actualizarLeidos = async () => {
         try {
-            
-            const urlLeidos = `http://localhost:3000/leidos/${uid}`;
-            const response = await fetch(urlLeidos);
-            const resData = await response.json();
-            setLeidos(resData);
+            const nuevosLeidos = await librosLeidos(uid);
+            setLeidos(nuevosLeidos);
         } catch (error) {
-            console.log(error);
+            console.error("Error actualizando leidos:", error);
         }
     };
-    */
+    
     return(
         <>
             <h3>Hola  </h3>
@@ -66,7 +59,7 @@ import { LibrosContext } from '../hooks/LibrosContext';
             </div>
             <div>
                 <h1>Libros que quiero leer</h1>
-                <LibrosPendientes uid={uid}  />
+                <LibrosPendientes uid={uid} actualizarLeidos={actualizarLeidos} />
             </div>
         </>
       
