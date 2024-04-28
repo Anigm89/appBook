@@ -10,10 +10,12 @@ const ItemDetailPage = ({item}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(null); 
-  const { eliminarLibro, MarcarLeido, MarcarPendiente, librosLeidos, eliminarLeido  } = useContext(LibrosContext);
+  const { eliminarLibro, MarcarLeido, MarcarPendiente, librosLeidos, eliminarLeido, librosPendientes  } = useContext(LibrosContext);
   const [isLeido, setIsLeido] = useState(false);
   const [leidosData, setLeidosData] = useState([]);
-  const [leidos, setLeidos] = useState([])
+  const [leidos, setLeidos] = useState([]);
+  const [isPendiente, setIsPendiente] = useState([]);
+  const [pendientesData, setPendientesData] = useState([]);
 
 
 
@@ -72,7 +74,26 @@ const ItemDetailPage = ({item}) => {
     catch (error) {
       setError('No se ha podido quitar de leídos');
     }
-  }
+  };
+
+  useEffect(() => {
+    if (usuario) {
+      const getPendientes = async () => {
+        try {
+          const pendientesData = await librosPendientes(usuario.uid);
+          console.log('pData:', pendientesData);
+          console.log('item.id:', item.id);
+          const isPending = pendientesData.some(libro => libro.id_libro === item.id);
+          console.log('isPen:', isPending);
+          setIsPendiente(isPending);
+        } catch (error) {
+          console.error('Error al obtener la lista de libros pendientes:', error);
+        }
+      };
+  
+      getPendientes();
+    }
+  }, [item.id, librosPendientes, usuario]);
   
   
 
@@ -98,7 +119,6 @@ const ItemDetailPage = ({item}) => {
        usuario && !isLeido ?
         (<>
           <button onClick={handleLeido}>Marcar como leído</button>
-          <button onClick={handlePendiente}>Por leer</button>
         </>)
         :
         <>
@@ -106,6 +126,17 @@ const ItemDetailPage = ({item}) => {
           <button onClick={() => handlequitar(item.id)}>Quitar de leídos</button>
         </>
       }
+      {
+        usuario && !isPendiente && !isLeido &&
+        (
+          <button onClick={handlePendiente}>Por leer</button>
+        )
+      }
+      {usuario && isPendiente && !isLeido && (
+        <div>
+          <p>Libro marcado como pendiente</p>
+        </div>
+      )}
       {error && <p>Error: {error}</p>}
     </>
  
