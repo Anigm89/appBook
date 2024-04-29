@@ -24,7 +24,7 @@ const BookController = {
     async getGenero(req, res){
         try {
             const genero = req.params.genero;
-            const [books] = await pool.query(`SELECT * FROM libros WHERE genero like '%${genero}%'`);
+            const [books] = await pool.query(`SELECT * FROM libros WHERE genero like '%${genero}%' GROUP BY id`);
             res.json([books])
         } catch (error) {
             console.log(error)
@@ -50,11 +50,13 @@ const BookController = {
     },    
     async getRelacionados(req, res){
         try {
-            const { genero, autor, keywords } = req.body;
+            const { genero, autor, keywords } = req.params;
 
-            const searchQuery = `SELECT * FROM libros WHERE genero LIKE '%${genero}%' or autor LIKE '%${autor}%' or keywords like '%${keywords}%'`
+            const searchQuery = `SELECT * FROM libros WHERE genero LIKE '%${genero}%' or autor LIKE '%${autor}%' or keywords like '%${keywords}%' LIMIT 5`
             const relacionados = await pool.query(searchQuery);
             res.json(relacionados);
+            console.log(searchQuery)
+            console.log(relacionados)
             
         } catch (error) {
             console.log(error);

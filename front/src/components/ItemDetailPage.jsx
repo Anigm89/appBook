@@ -2,6 +2,7 @@ import { AuthContext } from "../hooks/AuthContext.jsx";
 import { useContext, useState, useEffect} from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
+import Relacionados from "./Relacionados.jsx";
 
 
 
@@ -53,10 +54,7 @@ const ItemDetailPage = ({item}) => {
       const getLeidos2 = async () => {
         try {
           const leidosData = await librosLeidos(usuario.uid);
-          console.log('leidosData:', leidosData);
-          console.log('item.id:', item.id);
           const isRead = leidosData.some(libro => libro.id_libro === item.id);
-          console.log('isRead:', isRead);
           setIsLeido(isRead);
         } catch (error) {
           console.error('Error al obtener la lista de libros leídos:', error);
@@ -96,7 +94,7 @@ const ItemDetailPage = ({item}) => {
 
   return (
     <>
-      <h2>{item.titulo}{item.id} </h2>
+      <h2>{item.titulo} </h2>
       <h3>{item.subtitulo} </h3>
       <h4>{item.autor} </h4>
       <img src={item.imagen} alt="" />
@@ -135,6 +133,8 @@ const ItemDetailPage = ({item}) => {
         </div>
       )}
       {error && <p>Error: {error}</p>}
+
+      <Relacionados genero={item.genero} autor={item.autor}  keywords={item.keywords} />
     </>
  
   );
