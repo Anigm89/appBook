@@ -220,7 +220,18 @@ export const LibrosProvider = ({children, id, token}) => {
         try{
             const response = await fetch(urlgenero);
             const data = await response.json();
-            console.log('data', data);
+            return data;
+        }
+        catch(error){
+            console.log(error)
+        }
+    };
+
+    const BuscarKeywords = async (palabra) =>{
+        const urlkeywords = `http://localhost:3000/keywords/${palabra}`;
+        try{
+            const response = await fetch(urlkeywords);
+            const data = await response.json();
             return data;
         }
         catch(error){
@@ -248,7 +259,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros,fetchData, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes, Buscartitulo, BuscarGenero}} >
+        <LibrosContext.Provider value={{libros,fetchData, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes, Buscartitulo, BuscarGenero, BuscarKeywords}} >
             {children}
         </LibrosContext.Provider>
     )

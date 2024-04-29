@@ -3,6 +3,7 @@ import { LibrosContext } from '../hooks/LibrosContext'
 import { useContext, useState, useEffect, useRef } from "react";
 import BuscadorTitulo from "../components/BuscadorTitulo";
 import BuscadorGenero from "../components/BuscadorGenero";
+import BuscadorKeyWords from "../components/BuscadorKeyWords";
 
 const Home = () => {
 
@@ -10,6 +11,7 @@ const Home = () => {
   const [books, setBooks] = useState([]);
   const [buscadosT, setBuscadosT]  = useState([]);
   const [resultadosGenero, setResultadosGenero] = useState([]);
+  const [resultKW, setResultKW ] = useState([]);
 
   const divRef = useRef(null)
 
@@ -37,10 +39,16 @@ const Home = () => {
     setResultadosGenero(searchResultsG);
     divRef.current.style.display = 'none'
   };
+
+  const onSearchKw = async (searchResultsKW) => {
+    setResultKW(searchResultsKW);
+    divRef.current.style.display = 'none'
+  };
  
   const handleReset = () => {
     setBuscadosT([]);
     setResultadosGenero([]);
+    setResultKW([]);
     divRef.current.style.display = 'block'
 
   };
@@ -50,6 +58,7 @@ const Home = () => {
      <div>
       <BuscadorTitulo onSearchT={onSearchT} mostrarResultados={buscadosT.length > 0} handleReset={handleReset} />
       <BuscadorGenero onSearchGenero={onSearchGenero} mostrarResultados={resultadosGenero.length > 0} handleReset={handleReset} />
+      <BuscadorKeyWords onSearchKw={onSearchKw} mostrarResultados={resultKW.length > 0} handleReset={handleReset} />
     </div>
      <div className="todos" ref={divRef}>
        <h2>Lista de libros</h2>

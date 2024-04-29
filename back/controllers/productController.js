@@ -38,6 +38,15 @@ const BookController = {
         } catch (error) {
             console.log(error)
         }
+    },  
+    async getKeywords(req, res) {
+        try {
+            const keyword = req.params.keywords;
+            const [keywords] = await pool.query(`SELECT * FROM libros WHERE keywords like '%${keyword}%'`);
+            res.json([keywords])
+        } catch (error) {
+            console.log(error)
+        }
     },    
     async getRelacionados(req, res){
         try {

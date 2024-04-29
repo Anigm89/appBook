@@ -7,6 +7,7 @@ router.get('/', BookController.ShowBooks);
 router.get('/id/:_id', BookController.getById);
 router.get('/genero/:genero', BookController.getGenero);
 router.get('/titulo/:titulo', BookController.getTitle);
+router.get('/keywords/:keywords', BookController.getKeywords);
 router.get('/relacionados', BookController.getRelacionados)
 router.post('/create',verifyUser, BookController.create);
 router.put('/edit/:id', verifyUser, BookController.updateBook);
