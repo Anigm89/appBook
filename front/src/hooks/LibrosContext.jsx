@@ -296,7 +296,7 @@ export const LibrosProvider = ({children, id, token}) => {
     }, [])
 
     return(
-        <LibrosContext.Provider value={{libros,fetchData, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes, Buscartitulo, BuscarGenero, BuscarLibrosGenero, BuscarLibrosAutor, BuscarKeywords, BuscarRelacionados}} >
+        <LibrosContext.Provider value={{libros,fetchData, addBook, updateBook, eliminarLibro, MarcarLeido, MarcarPendiente, EliminarPendiente, librosLeidos, eliminarLeido, librosPendientes, Buscartitulo, BuscarGenero, BuscarLibrosGenero, BuscarLibrosAutor, BuscarKeywords}} >
             {children}
         </LibrosContext.Provider>
     )

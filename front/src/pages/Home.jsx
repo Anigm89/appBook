@@ -4,6 +4,8 @@ import { useContext, useState, useEffect, useRef } from "react";
 import BuscadorTitulo from "../components/BuscadorTitulo";
 import BuscadorGenero from "../components/BuscadorGenero";
 import BuscadorKeyWords from "../components/BuscadorKeyWords";
+import ReactPaginate from 'react-paginate';
+
 
 const Home = () => {
 
@@ -12,6 +14,13 @@ const Home = () => {
   const [buscadosT, setBuscadosT]  = useState([]);
   const [resultadosGenero, setResultadosGenero] = useState([]);
   const [resultKW, setResultKW ] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
+  const resultsPerPage = 5; 
+  const pageCount = Math.ceil(books.length / resultsPerPage);
+  const offset = pageNumber * resultsPerPage;
+  const currentPageBooks = books.slice(offset, offset + resultsPerPage);
+  
+
 
   const divRef = useRef(null)
 
@@ -63,7 +72,8 @@ const Home = () => {
      <div className="todos" ref={divRef}>
        <h2>Lista de libros</h2>
         <ul className="home">
-        { books.map(item => (
+        {// books.map(item => (
+           currentPageBooks.map(item => (
               <li key={item.id}>
                 <Link to={`/${item.id}`}>
                   <div className="card">
@@ -77,6 +87,18 @@ const Home = () => {
         }
         </ul>
       </div>
+
+      <ReactPaginate
+        previousLabel={'Anterior'}
+        nextLabel={'Siguiente'}
+        breakLabel={'...'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={({ selected }) => setPageNumber(selected)}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
     </>
     
   )

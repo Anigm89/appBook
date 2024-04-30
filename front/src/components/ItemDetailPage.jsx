@@ -134,7 +134,7 @@ const ItemDetailPage = ({item}) => {
       )}
       {error && <p>Error: {error}</p>}
 
-      <Relacionados genero={item.genero} autor={item.autor}  keywords={item.keywords} />
+      <Relacionados genero={item.genero} autor={item.autor} />
     </>
  
   );

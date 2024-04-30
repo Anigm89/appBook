@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
 
 
-function Relacionados({genero, autor, keywords}){
+function Relacionados({genero, autor}){
     const { BuscarLibrosGenero, BuscarLibrosAutor  } = useContext(LibrosContext); 
     const [relacionadosgenero, setRelacionadosgenero] = useState([]);
     const [ relacionadosautor, setRelacionadosautor] = useState([]);
