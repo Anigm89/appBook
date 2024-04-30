@@ -23,8 +23,17 @@ const BookController = {
     },
     async getGenero(req, res){
         try {
+            const [books] = await pool.query(`SELECT genero FROM libros`);
+            res.json([books])
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async getLibrosGenero(req, res){
+        try {
             const genero = req.params.genero;
-            const [books] = await pool.query(`SELECT * FROM libros WHERE genero like '%${genero}%' GROUP BY id`);
+            const queryGenero = `SELECT * FROM libros WHERE genero like '%${genero}%' GROUP BY id`
+            const [books] = await pool.query(queryGenero);
             res.json([books])
         } catch (error) {
             console.log(error)

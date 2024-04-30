@@ -5,7 +5,8 @@ const verifyUser = require('../middleware/authMiddleware');
 
 router.get('/', BookController.ShowBooks);
 router.get('/id/:_id', BookController.getById);
-router.get('/genero/:genero', BookController.getGenero);
+router.get('/generos', BookController.getGenero);
+router.get('/genero/:genero', BookController.getLibrosGenero);
 router.get('/titulo/:titulo', BookController.getTitle);
 router.get('/keywords/:keywords', BookController.getKeywords);
 router.get('/relacionados/:genero/:autor/:keywords', BookController.getRelacionados)

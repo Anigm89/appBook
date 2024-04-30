@@ -4,16 +4,14 @@ import { LibrosContext } from '../hooks/LibrosContext';
 
 
 function Relacionados({genero, autor, keywords}){
-    const { BuscarGenero  } = useContext(LibrosContext); 
-
+    const { BuscarLibrosGenero  } = useContext(LibrosContext); 
     const [relacionadosgenero, setRelacionadosgenero] = useState([]);
 
-  
     const generos= genero.split(',').map(palabra => palabra.trim().toLowerCase());
         useEffect(() => {
             const fetch = async () => {
                 try {
-                    const relacionadosgenero = await BuscarGenero(generos[0]);
+                    const relacionadosgenero = await BuscarLibrosGenero(generos[0]);
                     if (relacionadosgenero) {
                         setRelacionadosgenero(relacionadosgenero);
                     }
