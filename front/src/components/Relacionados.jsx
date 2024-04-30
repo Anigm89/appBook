@@ -4,8 +4,9 @@ import { LibrosContext } from '../hooks/LibrosContext';
 
 
 function Relacionados({genero, autor, keywords}){
-    const { BuscarLibrosGenero  } = useContext(LibrosContext); 
+    const { BuscarLibrosGenero, BuscarLibrosAutor  } = useContext(LibrosContext); 
     const [relacionadosgenero, setRelacionadosgenero] = useState([]);
+    const [ relacionadosautor, setRelacionadosautor] = useState([]);
 
     const generos= genero.split(',').map(palabra => palabra.trim().toLowerCase());
         useEffect(() => {
@@ -21,6 +22,20 @@ function Relacionados({genero, autor, keywords}){
             };
             fetch();
             
+          }, []);
+
+          useEffect(() => {
+            const fetchAutor = async () => {
+                try {
+                    const relacionadosautor = await BuscarLibrosAutor(autor);
+                    if (relacionadosautor) {
+                        setRelacionadosautor(relacionadosautor);
+                    }
+                } catch (error) {
+                    console.error("Error fetching leidos:", error);
+                }
+            };
+            fetchAutor();
           }, []);
    
     
@@ -39,6 +54,19 @@ function Relacionados({genero, autor, keywords}){
                 <p>No se han encontrado libros del mismo género</p>
              }
           
+        </div>
+        <div>
+             <h2>Otros libros del autor </h2>
+             {relacionadosautor && relacionadosautor.length > 0 ?
+             (
+                relacionadosautor[0].map((elem, i) =>(
+                    <li key={i}>
+                        <img src={elem.imagen} alt={elem.titulo} />
+                    </li>
+                )))
+                :
+                <p>No se han encontrado libros del mismo género</p>
+             }
         </div>
         </>
     )

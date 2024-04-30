@@ -21,6 +21,15 @@ const BookController = {
             console.log(error)
         }
     },
+    async getAutor(req, res){
+        try {
+            const autor = req.params.autor;
+            const [books] = await pool.query(`SELECT * FROM libros WHERE autor like '%${autor}%'`);
+            res.json([books])
+        } catch (error) {
+            console.log(error)
+        }
+    },
     async getGenero(req, res){
         try {
             const [books] = await pool.query(`SELECT genero FROM libros`);
