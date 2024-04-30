@@ -39,7 +39,7 @@ const Home = () => {
     
   }, []);
 
-  const onSearchT = async (searchResults) => {
+  const onSearchT =  (searchResults) => {
     setBuscadosT(searchResults);
     divRef.current.style.display = 'none';
   };
@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <>
      <div>
-      <BuscadorTitulo onSearchT={onSearchT} mostrarResultados={buscadosT.length > 0} handleReset={handleReset} />
+      <BuscadorTitulo onSearchT={onSearchT} />
       <BuscadorGenero onSearchGenero={onSearchGenero} mostrarResultados={resultadosGenero.length > 0} handleReset={handleReset} />
       <BuscadorKeyWords onSearchKw={onSearchKw} mostrarResultados={resultKW.length > 0} handleReset={handleReset} />
     </div>
@@ -86,8 +86,7 @@ const Home = () => {
             ))
         }
         </ul>
-      </div>
-
+      
       <ReactPaginate
         previousLabel={'Anterior'}
         nextLabel={'Siguiente'}
@@ -99,6 +98,27 @@ const Home = () => {
         containerClassName={'pagination'}
         activeClassName={'active'}
       />
+      </div>
+      <div className="resultadosTitulo">
+        { buscadosT  &&  buscadosT.length > 0 ?
+              <>
+              <ul>
+                  {buscadosT[0].map((res, i) => (
+                      <li key={i}>
+                        <Link to={`/${res.id}`}>
+                              <img src={res.imagen} alt={res.titulo} /> 
+                              <p>Ver</p>
+                          </Link>
+                      </li>
+                  ))}
+              </ul>
+              <button onClick={handleReset}>Reset</button>
+              </>
+              : null
+        }
+        {buscadosT && buscadosT[0] == 0 && <p>No se han encontrado resultados</p>}
+        
+      </div>
     </>
     
   )

@@ -22,15 +22,14 @@ function BuscadorGenero({onSearchGenero, mostrarResultados, handleReset }){
 
         fetchData();
     }, [BuscarGenero]);
-
     useEffect(() => {
         if (resultados.length > 0) {
         const obtenerGenerosUnicos = () => {
             const generosUnicosSet = new Set();
             resultados.forEach(resultado => {
             if (resultado && resultado.genero) { 
-                const generos = resultado.genero.split(',').map(genero => genero.trim());
-                generos.forEach(genero => generosUnicosSet.add(genero));
+                const generos = resultado.genero.split(',').map(genero => genero.trim()); 
+                generos.forEach(genero => generosUnicosSet.add(genero.toLowerCase()));
             }
             });
             const generosUnicosArray = Array.from(generosUnicosSet);
