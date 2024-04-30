@@ -20,7 +20,7 @@ function RoutesApp () {
 
     return (
     <Router>
-      <div className="content">
+      
         <header>
             <nav>
               <Link to="/">Inicio</Link>
@@ -37,6 +37,7 @@ function RoutesApp () {
               }            
             </nav>
         </header>
+        <div className="content">
         {!libros 
         ? (<div>cargando...</div>) 
         : 

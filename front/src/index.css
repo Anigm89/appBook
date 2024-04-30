@@ -69,7 +69,8 @@ button:focus-visible {
   height: 100vh;
 }
 .content {
-  width: 95%;
+  width: 96%;
+  margin: 0 auto;
 }
 .home{
   display: flex;
