@@ -3,15 +3,13 @@ import { LibrosContext } from '../hooks/LibrosContext';
 import { Link } from "react-router-dom";
 
 
-function BuscadorGenero({onSearchGenero, mostrarResultados, handleReset }){
+function BuscadorGenero({onSearchGenero }){
 
-  const [generosUnicos, setGenerosUnicos] = useState([]);
-  const [resultados, setResultados ] = useState([]);
-  const { BuscarGenero } = useContext(LibrosContext);
-  const { BuscarLibrosGenero } = useContext(LibrosContext);
-  const [genero, setGenero] = useState('');
-  const [ reslibros, setReslibros ] = useState([]);
-  const [ mensaje, setMensaje] = useState(false);
+    const { BuscarGenero, BuscarLibrosGenero} = useContext(LibrosContext);
+    const [generosUnicos, setGenerosUnicos] = useState([]);
+    const [resultados, setResultados ] = useState([]);
+    const [genero, setGenero] = useState('');
+    const [ reslibros, setReslibros ] = useState([]);
 
 
     useEffect(() => {
@@ -42,20 +40,16 @@ function BuscadorGenero({onSearchGenero, mostrarResultados, handleReset }){
 
     const handleGeneroChange = (e) => {
         setGenero(e.target.value);
-        setMensaje(false); 
     };
 
     useEffect(() =>{ 
         const buscar = async () => {
             const data = await BuscarLibrosGenero(genero);
             setReslibros(data);
-            console.log('rels', reslibros)
             if (data && data.length > 0) {
                 onSearchGenero(data);
                 setGenero('');
-            } else {
-                setMensaje(true); 
-            }
+            } 
         }
         if (genero !== '') {
             buscar();
@@ -65,7 +59,7 @@ function BuscadorGenero({onSearchGenero, mostrarResultados, handleReset }){
 
 
     return (
-        <>
+        
         <select value={genero} onChange={handleGeneroChange}>
                 <option value="">Selecciona un género</option>
                 {generosUnicos.map((genero, index) => (
@@ -75,25 +69,6 @@ function BuscadorGenero({onSearchGenero, mostrarResultados, handleReset }){
                 ))}
         </select>
 
-        { mostrarResultados  &&  reslibros.length > 0 ?
-                <>
-                <ul>
-                    {reslibros[0].map((res, i) => (
-                        <li key={i}>
-                            <Link to={`/${res.id}`}>
-                                <img src={res.imagen} alt={res.titulo} /> 
-                                <p>Ver</p>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-                <button onClick={handleReset}>Reset</button>
-                </>
-                : null
-        }
-        {mensaje && resultados.length === 0 && <p>No se han encontrado resultados</p>}
-        </>
-        
     );
 }
 

@@ -66,8 +66,8 @@ const Home = () => {
     <>
      <div>
       <BuscadorTitulo onSearchT={onSearchT} />
-      <BuscadorGenero onSearchGenero={onSearchGenero} mostrarResultados={resultadosGenero.length > 0} handleReset={handleReset} />
-      <BuscadorKeyWords onSearchKw={onSearchKw} mostrarResultados={resultKW.length > 0} handleReset={handleReset} />
+      <BuscadorGenero onSearchGenero={onSearchGenero} />
+      <BuscadorKeyWords onSearchKw={onSearchKw} />
     </div>
      <div className="todos" ref={divRef}>
        <h2>Lista de libros</h2>
@@ -117,10 +117,47 @@ const Home = () => {
               : null
         }
         {buscadosT && buscadosT[0] == 0 && <p>No se han encontrado resultados</p>}
-        
+      </div>
+      <div>
+        { resultadosGenero  &&  resultadosGenero.length > 0 ?
+          <>
+          <ul>
+              {resultadosGenero[0].map((res, i) => (
+                  <li key={i}>
+                      <Link to={`/${res.id}`}>
+                          <img src={res.imagen} alt={res.titulo} /> 
+                          <p>Ver</p>
+                      </Link>
+                  </li>
+              ))}
+          </ul>
+          <button onClick={handleReset}>Reset</button>
+          </>
+          : null
+        }
+        {resultadosGenero && resultadosGenero[0] === 0 && <p>No se han encontrado resultados</p>}
+      </div>
+      <div>
+        { resultKW  &&  resultKW.length > 0 ?
+          <>
+          <ul>
+              {resultKW[0].map((res, i) => (
+                  <li key={i}>
+                      <Link to={`/${res.id}`}>
+                            <img src={res.imagen} alt={res.titulo} /> 
+                            <p>Ver</p>
+                      </Link>
+                  </li>
+              ))}
+          </ul>
+          <button onClick={handleReset}>Reset</button>
+          </>
+          : null
+        }
+       {resultKW && resultKW[0] === 0 && <p>No se han encontrado resultados</p>}
+      
       </div>
     </>
-    
   )
 };
 
