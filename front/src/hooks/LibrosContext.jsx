@@ -84,14 +84,14 @@ export const LibrosProvider = ({children, id, token}) => {
             }
     };
 
-    const MarcarLeido = async (id_libro, uid) =>{
+    const MarcarLeido = async (id_libro, uid, token) =>{
         const urlLeidos = 'http://localhost:3000/leidos';
         
         try{  
             const response = await fetch(urlLeidos, {
                 method: 'POST', 
                 headers: {
-                    //'Authorization': `Bearer ${token}`, 
+                    'Authorization': `Bearer ${token}`, 
                     'Content-Type': 'application/json', 
                 },
                 body: JSON.stringify({id_libro, uid}), 

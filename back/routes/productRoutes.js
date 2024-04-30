@@ -16,11 +16,11 @@ router.put('/edit/:id', verifyUser, BookController.updateBook);
 router.delete('/delete/:id', verifyUser, BookController.deleteBook);
 
 router.post('/createUser', BookController.createUser);
-router.post('/leidos/', BookController.leidos);
+router.post('/leidos/',verifyUser, BookController.leidos);
 router.post('/pendientes', verifyUser, BookController.pendientes);
 router.get('/leidos/:uid', BookController.getLeidos);
 router.get('/pendientes/:uid', BookController.getPendientes);
-router.delete('/deletePendiente/:id_libro/:uid', BookController.deletePendiente)
+router.delete('/deletePendiente/:id_libro/:uid', verifyUser, BookController.deletePendiente)
 router.delete('/deleteLeido/:id_libro/:uid', verifyUser, BookController.deleteLeido)
 
 

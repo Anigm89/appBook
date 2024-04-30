@@ -3,7 +3,7 @@ import { LibrosContext } from '../hooks/LibrosContext';
 
 
 
-function LibrosPendientes({uid, actualizarLeidos}){
+function LibrosPendientes({uid, actualizarLeidos, token}){
   
     const [ pendientes, setPendientes] = useState([]);
     const { librosPendientes, MarcarLeido, EliminarPendiente, librosLeidos } = useContext(LibrosContext);
@@ -27,7 +27,7 @@ function LibrosPendientes({uid, actualizarLeidos}){
         
         try{
           await MarcarLeido(id, uid);
-          await EliminarPendiente(id, uid);
+          await EliminarPendiente(id, uid, token);
           setPendientes(prevPendientes => prevPendientes.filter(pendiente => pendiente.id_libro !== id));
           await actualizarLeidos();
 

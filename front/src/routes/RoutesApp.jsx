@@ -46,7 +46,7 @@ function RoutesApp () {
             <Route path="/registro" element={<FormNewUser />} />
            
             {libros.map(item => (
-              <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item}/>} />
+              <Route key={item.id} path={`/${item.id}`} element={<ItemDetailPage item={item} />} />
             ))
           }
         
@@ -54,7 +54,7 @@ function RoutesApp () {
                 <>
                     <Route path="/create" element={<InputCreate token={usuario.accessToken} />} />
                     <Route path="/editBook/:id" element={<EditarLibro token={usuario.accessToken} />} />
-                    <Route path="/profile" element={<Profileuser uid={usuario.uid}  />} />
+                    <Route path="/profile" element={<Profileuser uid={usuario.uid} token={usuario.accessToken} />} />
                 </>
             ) : (
                 <>

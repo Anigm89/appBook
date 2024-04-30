@@ -3,7 +3,7 @@ import LibrosPendientes from "../components/LibrosPendientes.jsx";
 import { Link } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
 
- function Profileuser({uid}){
+ function Profileuser({uid, token}){
 
     const { librosLeidos  } = useContext(LibrosContext); 
     const [leidos, setLeidos] = useState([]);
@@ -31,7 +31,6 @@ import { LibrosContext } from '../hooks/LibrosContext';
             console.error("Error actualizando leidos:", error);
         }
     };
-    
     return(
         <>
             <div>
@@ -56,7 +55,7 @@ import { LibrosContext } from '../hooks/LibrosContext';
             </div>
             <div>
                 <h1>Libros que quiero leer</h1>
-                <LibrosPendientes uid={uid} actualizarLeidos={actualizarLeidos} />
+                <LibrosPendientes uid={uid} actualizarLeidos={actualizarLeidos} token={token} />
             </div>
         </>
       

@@ -72,7 +72,7 @@ const Home = () => {
      <div className="todos" ref={divRef}>
        <h2>Lista de libros</h2>
         <ul className="home">
-        {// books.map(item => (
+        {
            currentPageBooks.map(item => (
               <li key={item.id}>
                 <Link to={`/${item.id}`}>
