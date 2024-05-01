@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,20 +11,120 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
+  text-align: center;
+}
+header{
+  height: 40px;
+  border-bottom: 2px solid darkturquoise;
+  align-content: center;
+}
+nav {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center
+}
+.content {
+  width: 96%;
+  margin: 0 auto;
+}
+.buscadores{
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+.buscadores button{
+  margin-left: 10px;
+  background-color: darkturquoise;
+  color: #fff;
+  padding: 5px 10px;
+}
+.buscadores input{
+  border: none;
+  border-bottom: 1px solid darkturquoise;
+  background: none;
+  background-image: url('../src/assets/lupa.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 28px;
+}
+.buscadores input::placeholder{color: #ccc;}
+.buscadores select{
+  border: none;
+  background-color: #00ced1;
+  border-radius: 5px;
+  color: #fff;
+  font-family: Avenir, sans-serif;
+  padding: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.buscadores select option {
+  background-color: #fff; 
+  border: 2px solid #00ced1; 
+  color: darkturquoise;
+}
+.buscadores select option:hover {
+  background-color: #00ced1; 
+  cursor: pointer;
+}
+
+.buscadores input:focus, .buscadores select:focus{outline: none;}
+
+.home{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:10px
 }
 ul{
   display: flex;
   flex-wrap: wrap;
-
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0;
 }
+.card {
+  width: 19%;
+  padding: 15px 0;
+}
+
+.card h2{
+  font-size: 20px;
+}
+.card p{
+  font-size: 14px;
+}
+.card img{
+  width: 130px;
+  height: 196px;
+}
+.card a{color: darkcyan;}
+.card:hover{
+  box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+}
+.card a:hover{color: #00ced1;}
+
+
 li{list-style: none;}
 a {
   font-weight: 500;
-  color: #646cff;
+  color: darkturquoise;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: darkcyan;
 }
 
 body {
@@ -38,10 +138,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-nav {
-  display: flex;
-  justify-content: space-between;
-}
+
 
 button {
   border-radius: 8px;
@@ -50,32 +147,16 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  /*background-color: #1a1a1a;*/
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: darkcyan;
+  background-color: darkcyan;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-.content {
-  width: 96%;
-  margin: 0 auto;
-}
-.home{
-  display: flex;
-  flex-wrap: wrap;
-}
+
+
 
 
 @media (prefers-color-scheme: light) {
@@ -84,7 +165,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: darkcyan;
   }
   button {
     background-color: #f9f9f9;

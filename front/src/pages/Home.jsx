@@ -15,7 +15,7 @@ const Home = () => {
   const [resultadosGenero, setResultadosGenero] = useState([]);
   const [resultKW, setResultKW ] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const resultsPerPage = 5; 
+  const resultsPerPage = 10; 
   const pageCount = Math.ceil(books.length / resultsPerPage);
   const offset = pageNumber * resultsPerPage;
   const currentPageBooks = books.slice(offset, offset + resultsPerPage);
@@ -64,23 +64,20 @@ const Home = () => {
 
   return (
     <>
-     <div>
+     <div className="buscadores">
       <BuscadorTitulo onSearchT={onSearchT} />
       <BuscadorGenero onSearchGenero={onSearchGenero} />
       <BuscadorKeyWords onSearchKw={onSearchKw} />
     </div>
      <div className="todos" ref={divRef}>
-       <h2>Lista de libros</h2>
         <ul className="home">
         {
            currentPageBooks.map(item => (
-              <li key={item.id}>
+              <li key={item.id} className="card">
                 <Link to={`/${item.id}`}>
-                  <div className="card">
+                   <img src={item.imagen} alt={item.titulo} />
                     <h2>{item.titulo}</h2>
                     <p>{item.autor}</p>
-                    <img src={item.imagen} alt={item.titulo} />
-                  </div>
                 </Link>
               </li>
             ))
