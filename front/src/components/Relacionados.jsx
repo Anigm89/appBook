@@ -1,8 +1,17 @@
 import { useState, useContext, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { LibrosContext } from '../hooks/LibrosContext';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-
+const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1
+}
 function Relacionados({genero, autor}){
     const { BuscarLibrosGenero, BuscarLibrosAutor  } = useContext(LibrosContext); 
     const [relacionadosgenero, setRelacionadosgenero] = useState([]);
@@ -38,42 +47,44 @@ function Relacionados({genero, autor}){
             fetchAutor();
           }, [autor]);
    
-    
+          
+            
     return(
         <>
-        <div>
+        <div className="relacionados">
              <h2>Otros libros de {generos[0]} </h2>
-             <ul className="relacionados">
-             {relacionadosgenero && relacionadosgenero.length > 0 ?
-             (
-                relacionadosgenero[0].slice(2,10).map((elem, i) =>(
-                    <li key={i} className="card">
-                        <Link to={`/${elem.id}`}>
-                            <img src={elem.imagen} alt={elem.titulo} />
-                        </Link>
-                    </li>
-                )))
-                :
-                <p>No se han encontrado libros del mismo género</p>
-             }
-             </ul>
+             {relacionadosgenero && relacionadosgenero.length > 0 ? (
+                <Slider {...settings}>
+                    {relacionadosgenero[0].slice(1, 10).map((elem, i) => (
+                         <div key={i} className="card">
+                            <Link to={`/${elem.id}`}>
+                                <img src={elem.imagen} alt={elem.titulo} />
+                            </Link>
+                         </div>
+                    ))}
+                </Slider>
+            )
+            :                
+            <p>No se han encontrado libros del mismo género</p>
+            }
         </div>
-        <div>
+        <div className="relacionados">
              <h2>Otros libros del autor </h2>
-             <ul className="relacionados">
              {relacionadosautor && relacionadosautor.length > 0 ?
              (
-                relacionadosautor[0].map((elem, i) =>(
-                    <li key={i} className="card">
-                        <Link to={`/${elem.id}`}>
-                            <img src={elem.imagen} alt={elem.titulo} />
-                        </Link>
-                    </li>
-                )))
+                <Slider {...settings}>
+                   {relacionadosautor[0].map((elem, i) =>(
+                        <div key={i} className="card">
+                            <Link to={`/${elem.id}`}>
+                                <img src={elem.imagen} alt={elem.titulo} />
+                            </Link>
+                        </div>
+                ))}
+                </Slider>
+             )
                 :
-                <p>No se han encontrado libros del mismo género</p>
+                <p>No se han encontrado libros del mismo autor</p>
              }
-             </ul>
         </div>
         </>
     )

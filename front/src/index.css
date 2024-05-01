@@ -116,12 +116,46 @@ ul{
 }
 .cardsHome a:hover{color: #00ced1;}
 .relacionados{
-  justify-content: space-evenly;
+  width: 90%;
+  margin: auto;
+  padding: 30px
 }
 .card img{
-  width: 130px;
-  height: 196px;
+  width: 150px;
+  height: 216px;
 }
+
+.product-cardId {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  font-weight: 400;
+  font-style: normal;
+  width: 76vw;
+  height: 70vh;
+  margin: 3vw auto;
+  background-color: aliceblue; 
+}
+.izq{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.izq img{width: 15vw;}
+.izq h2, .izq h3, .izq h4{ margin: 5px;}
+.detalles{
+   display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 45%;
+}
+
+.detalles p{text-align: justify;}
+
 
 li{list-style: none;}
 a {

@@ -94,15 +94,22 @@ const ItemDetailPage = ({item}) => {
 
   return (
     <>
-      <h2>{item.titulo} </h2>
-      <h3>{item.subtitulo} </h3>
-      <h4>{item.autor} </h4>
-      <img src={item.imagen} alt="" />
-      <p>{item.sinopsis} </p>
-      <p>{item.paginas} </p>
-      <p>{item.genero} </p>
-      <p>{item.keywords} </p>
+      <div className="product-cardId">
+        <div className="izq">
+          <h2>{item.titulo} </h2>
+          <h3>{item.subtitulo} </h3>
+          <h4>{item.autor} </h4>
+          <img src={item.imagen} alt="{item.titulo}" />
+        </div>
 
+        <div className="detalles">
+          
+          <p>{item.sinopsis} </p>
+          <p>Nº de Páginas: {item.paginas} </p>
+          <p>Género: {item.genero} </p>
+          <p>Palabras clave: {item.keywords} </p>
+        </div>
+      </div>
       {usuario && usuario.email === 'admin@ejemplo.es' && (
         <div>
           <Link to={`/editBook/${item.id}`}> <button>Editar</button></Link>
