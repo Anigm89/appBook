@@ -73,7 +73,7 @@ const Home = () => {
         <ul className="home">
         {
            currentPageBooks.map(item => (
-              <li key={item.id} className="card">
+              <li key={item.id} className="cardsHome">
                 <Link to={`/${item.id}`}>
                    <img src={item.imagen} alt={item.titulo} />
                     <h2>{item.titulo}</h2>

@@ -22,7 +22,7 @@ function Relacionados({genero, autor}){
             };
             fetch();
             
-          }, []);
+          }, [generos]);
 
           useEffect(() => {
             const fetchAutor = async () => {
@@ -36,37 +36,44 @@ function Relacionados({genero, autor}){
                 }
             };
             fetchAutor();
-          }, []);
+          }, [autor]);
    
     
     return(
         <>
         <div>
              <h2>Otros libros de {generos[0]} </h2>
+             <ul className="relacionados">
              {relacionadosgenero && relacionadosgenero.length > 0 ?
              (
-                relacionadosgenero[0].map((elem, i) =>(
-                    <li key={i}>
-                        <img src={elem.imagen} alt={elem.titulo} />
+                relacionadosgenero[0].slice(2,10).map((elem, i) =>(
+                    <li key={i} className="card">
+                        <Link to={`/${elem.id}`}>
+                            <img src={elem.imagen} alt={elem.titulo} />
+                        </Link>
                     </li>
                 )))
                 :
                 <p>No se han encontrado libros del mismo género</p>
              }
-          
+             </ul>
         </div>
         <div>
              <h2>Otros libros del autor </h2>
+             <ul className="relacionados">
              {relacionadosautor && relacionadosautor.length > 0 ?
              (
                 relacionadosautor[0].map((elem, i) =>(
-                    <li key={i}>
-                        <img src={elem.imagen} alt={elem.titulo} />
+                    <li key={i} className="card">
+                        <Link to={`/${elem.id}`}>
+                            <img src={elem.imagen} alt={elem.titulo} />
+                        </Link>
                     </li>
                 )))
                 :
                 <p>No se han encontrado libros del mismo género</p>
              }
+             </ul>
         </div>
         </>
     )

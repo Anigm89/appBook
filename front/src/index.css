@@ -94,28 +94,34 @@ ul{
   justify-content: space-between;
   padding: 0;
 }
-.card {
+.cardsHome {
   width: 19%;
   padding: 15px 0;
 }
 
-.card h2{
+.cardsHome h2{
   font-size: 20px;
 }
-.card p{
+.cardsHome p{
   font-size: 14px;
+}
+.cardsHome img{
+  width: 130px;
+  height: 196px;
+}
+.cardsHome a{color: darkcyan;}
+.cardsHome:hover{
+  box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+}
+.cardsHome a:hover{color: #00ced1;}
+.relacionados{
+  justify-content: space-evenly;
 }
 .card img{
   width: 130px;
   height: 196px;
 }
-.card a{color: darkcyan;}
-.card:hover{
-  box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-  border-radius: 15px;
-}
-.card a:hover{color: #00ced1;}
-
 
 li{list-style: none;}
 a {
