@@ -134,9 +134,9 @@ ul{
   font-weight: 400;
   font-style: normal;
   width: 76vw;
-  height: 70vh;
+  padding: 20px 0;
   margin: 3vw auto;
-  background-color: aliceblue; 
+ /* background-color: #edfbfb; */
 }
 .izq{
   display: flex;
@@ -146,6 +146,7 @@ ul{
 }
 .izq img{width: 15vw;}
 .izq h2, .izq h3, .izq h4{ margin: 5px;}
+.izq h2{font-size: 1.8vw;}
 .detalles{
    display: flex;
     flex-direction: column;
@@ -155,6 +156,34 @@ ul{
 }
 
 .detalles p{text-align: justify;}
+.botones{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.leido{
+  border: 2px solid #00ced1;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.leido p{margin: 0 5px 0 0; color: #00ced1;}
+.quitar{
+  background-color: #ed5454;
+  color: #fff;
+  margin-left: 10px;
+}
+.quitar:hover{background-color: #c02727; border: 1px solid #c02727;}
+
+.editar{background-color: #3d6cc1;}
+.editar:hover{background-color: #95b6f3;}
+.eliminar{ background-color:#c02727;  margin-left: 10px;}
+.eliminar:hover{ background-color:#ff2424 ;}
+.marcar{background-color: #00ced1;}
+.pendiente{background-color: cadetblue;  margin-left: 10px;}
+
 
 
 li{list-style: none;}
@@ -179,7 +208,7 @@ h1 {
   line-height: 1.1;
 }
 
-
+.error{color: #c02727;}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -190,9 +219,10 @@ button {
   /*background-color: #1a1a1a;*/
   cursor: pointer;
   transition: border-color 0.25s;
+  color: #fff;
 }
 button:hover {
-  border-color: darkcyan;
+  border-color: transparent;
   background-color: darkcyan;
 }
 

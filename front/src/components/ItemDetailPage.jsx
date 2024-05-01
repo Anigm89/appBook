@@ -18,7 +18,7 @@ const ItemDetailPage = ({item}) => {
   const [isPendiente, setIsPendiente] = useState([]);
   const [pendientesData, setPendientesData] = useState([]);
 
-
+ console.log('user', usuario)
 
   const handleDelete = async () =>{
     try {
@@ -103,44 +103,51 @@ const ItemDetailPage = ({item}) => {
         </div>
 
         <div className="detalles">
-          
           <p>{item.sinopsis} </p>
           <p>Nº de Páginas: {item.paginas} </p>
           <p>Género: {item.genero} </p>
-          <p>Palabras clave: {item.keywords} </p>
+          <p>Palabras clave: <i>{item.keywords} </i></p>
+       
+          {usuario && usuario.email === 'admin@ejemplo.es' && (
+            <div className="botones">
+              <Link to={`/editBook/${item.id}`}> <button className="editar">Editar</button></Link>
+              <button onClick={handleDelete} className="eliminar">Eliminar</button>
+              {error && <p>Error: {error}</p>}
+            </div>
+          )}
+          <div className="botones">
+          {
+          usuario && !isLeido &&
+            (<>
+              <button onClick={handleLeido} className="marcar">Marcar como leído</button>
+            </>)
+                     
+          }
+          {
+            usuario && !isPendiente && !isLeido &&
+            (
+              <button onClick={handlePendiente} className="pendiente">Por leer</button>
+            )
+          }
+          </div>
+          {usuario && isLeido && 
+            <div className="botones">
+              <div className="leido">
+                <p>leído</p>
+                <img src="../src/assets/cheque.png" alt="" />
+              </div>
+              <button onClick={() => handlequitar(item.id)} className="quitar">Quitar de leídos</button>
+            </div>
+          }
+          {usuario && isPendiente && !isLeido && (
+            <div className="leido">
+              <p>Libro marcado como pendiente</p>
+              <img src="../src/assets/cheque.png" alt="" />
+            </div>
+          )}
+          {error && <p className="error">Error: {error}</p>}
         </div>
       </div>
-      {usuario && usuario.email === 'admin@ejemplo.es' && (
-        <div>
-          <Link to={`/editBook/${item.id}`}> <button>Editar</button></Link>
-          <button onClick={handleDelete}>Eliminar</button>
-          {error && <p>Error: {error}</p>}
-        </div>
-      )}
-      {
-       usuario && !isLeido ?
-        (<>
-          <button onClick={handleLeido}>Marcar como leído</button>
-        </>)
-        :
-        <>
-          <div><p>leído</p></div>
-          <button onClick={() => handlequitar(item.id)}>Quitar de leídos</button>
-        </>
-      }
-      {
-        usuario && !isPendiente && !isLeido &&
-        (
-          <button onClick={handlePendiente}>Por leer</button>
-        )
-      }
-      {usuario && isPendiente && !isLeido && (
-        <div>
-          <p>Libro marcado como pendiente</p>
-        </div>
-      )}
-      {error && <p>Error: {error}</p>}
-
       <Relacionados genero={item.genero} autor={item.autor} />
     </>
  
