@@ -1,5 +1,6 @@
 import { useEffect, useContext ,useState} from "react";
 import { LibrosContext } from '../hooks/LibrosContext';
+import { Link } from "react-router-dom";
 
 
 
@@ -41,14 +42,15 @@ function LibrosPendientes({uid, actualizarLeidos, token}){
 
     return(
         <>
-        <div>
+        <div >
         {pendientes.length > 0 ?
             (<ul>
                 {pendientes.map((pendiente, index) =>(
-                    <li key={index}>
-                       
-                        <img src={pendiente.imagen} alt={pendiente.titulo} />
-                        <button onClick={() => handleUpdate(pendiente.id_libro)}>Marcar como leído</button>
+                    <li key={index} className="listadopendientes">
+                        <Link to={`/${pendiente.id_libro}`}>
+                            <img src={pendiente.imagen} alt={pendiente.titulo} />
+                            <button onClick={() => handleUpdate(pendiente.id_libro)} className="marcar">Marcar como leído</button>
+                        </Link>
                     </li>
                     ))}
             </ul>)

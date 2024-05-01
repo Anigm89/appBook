@@ -29,7 +29,7 @@ const ButtonLogout = () => {
   return(
     <>
     <Link to={'/profile'}>{usuario.email} </Link>
-    <button onClick={handleLogout}> Logout</button>
+    <button onClick={handleLogout} className='logout'> Logout</button>
     
     </>
   )

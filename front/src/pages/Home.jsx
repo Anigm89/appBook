@@ -96,12 +96,12 @@ const Home = () => {
         activeClassName={'active'}
       />
       </div>
-      <div className="resultadosTitulo">
+      <div className="resultados">
         { buscadosT  &&  buscadosT.length > 0 ?
               <>
               <ul>
                   {buscadosT[0].map((res, i) => (
-                      <li key={i}>
+                      <li key={i} className="card">
                         <Link to={`/${res.id}`}>
                               <img src={res.imagen} alt={res.titulo} /> 
                               <p>Ver</p>
@@ -109,18 +109,18 @@ const Home = () => {
                       </li>
                   ))}
               </ul>
-              <button onClick={handleReset}>Reset</button>
+              <button onClick={handleReset} className="marcar">Reset</button>
               </>
               : null
         }
         {buscadosT && buscadosT[0] == 0 && <p>No se han encontrado resultados</p>}
       </div>
-      <div>
+      <div className="resultados">
         { resultadosGenero  &&  resultadosGenero.length > 0 ?
           <>
           <ul>
               {resultadosGenero[0].map((res, i) => (
-                  <li key={i}>
+                  <li key={i} className="card">
                       <Link to={`/${res.id}`}>
                           <img src={res.imagen} alt={res.titulo} /> 
                           <p>Ver</p>
@@ -128,18 +128,18 @@ const Home = () => {
                   </li>
               ))}
           </ul>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleReset} className="marcar">Reset</button>
           </>
           : null
         }
         {resultadosGenero && resultadosGenero[0] === 0 && <p>No se han encontrado resultados</p>}
       </div>
-      <div>
+      <div className="resultados">
         { resultKW  &&  resultKW.length > 0 ?
           <>
           <ul>
               {resultKW[0].map((res, i) => (
-                  <li key={i}>
+                  <li key={i} className="card">
                       <Link to={`/${res.id}`}>
                             <img src={res.imagen} alt={res.titulo} /> 
                             <p>Ver</p>
@@ -147,7 +147,7 @@ const Home = () => {
                   </li>
               ))}
           </ul>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleReset} className="marcar" >Reset</button>
           </>
           : null
         }

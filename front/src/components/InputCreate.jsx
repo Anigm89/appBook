@@ -37,26 +37,28 @@ function InputCreate ({token}) {
     return (
         <>
             <h3>Añade un libro</h3>
-            <form onSubmit={handleSubmit}>
-                <label>Título:</label>
-                <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
-                <label>Subtítulo: </label>
-                <input type="text" placeholder="subtitulo" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
-                <label>Autor:</label>
-                <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
-                <label>Sinopsis:</label>
-                <textarea type="text" value={sinopsis} onChange={e => setSinopsis(e.target.value)} /> 
-                <label>Imagen:</label>
-                <input type="text" placeholder="subtitulo" value={imagen} onChange={e => setImagen(e.target.value)} />
-                <label>Nº de Páginas:</label>
-                <input type="number" placeholder="nº de páginas" value={paginas} onChange={e => setPaginas(e.target.value)} />
-                <label>Género:</label>
-                <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
-                <label>Palabras Clave:</label>
-                <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
+            <div className="formulario">
+                <form onSubmit={handleSubmit}>
+                    <label>Título:</label>
+                    <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
+                    <label>Subtítulo: </label>
+                    <input type="text" placeholder="subtitulo" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
+                    <label>Autor:</label>
+                    <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
+                    <label>Sinopsis:</label>
+                    <textarea type="text" value={sinopsis} onChange={e => setSinopsis(e.target.value)} /> 
+                    <label>Imagen:</label>
+                    <input type="text" placeholder="subtitulo" value={imagen} onChange={e => setImagen(e.target.value)} />
+                    <label>Nº de Páginas:</label>
+                    <input type="number" placeholder="nº de páginas" value={paginas} onChange={e => setPaginas(e.target.value)} />
+                    <label>Género:</label>
+                    <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
+                    <label>Palabras Clave:</label>
+                    <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
 
-                <button type="submit">Añadir</button>
-            </form>
+                    <button type="submit">Añadir</button>
+                </form>
+            </div>
             
             {error && <p>Error: {error}</p>}
 

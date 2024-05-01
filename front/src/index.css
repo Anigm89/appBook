@@ -14,13 +14,19 @@
   margin: 0 auto;
   text-align: center;
 }
+.logout:hover{
+  border: 2px solid #00ced1;
+  background-color: #fff;
+  color: #00ced1;
+}
+.logout{background-color: #00ced1;}
 header{
   height: 40px;
   border-bottom: 2px solid darkturquoise;
   align-content: center;
 }
 nav {
-  width: 90%;
+  width: 86%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -32,6 +38,7 @@ nav {
 .content {
   width: 96%;
   margin: 0 auto;
+  margin-bottom: 2vh;
 }
 .buscadores{
   height: 50px;
@@ -118,7 +125,7 @@ ul{
 .relacionados{
   width: 90%;
   margin: auto;
-  padding: 30px
+  padding: 20px
 }
 .card img{
   width: 150px;
@@ -177,14 +184,35 @@ ul{
 }
 .quitar:hover{background-color: #c02727; border: 1px solid #c02727;}
 
-.editar{background-color: #3d6cc1;}
+.editar{
+  background-color: #3d6cc1;
+  background-image: url('../src/assets/editar.png'); 
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  padding-left: 28px;
+}
 .editar:hover{background-color: #95b6f3;}
-.eliminar{ background-color:#c02727;  margin-left: 10px;}
+.eliminar{ 
+  background-color:#c02727;  
+  margin-left: 10px;
+  background-image: url('../src/assets/eliminar.png'); 
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  padding-left: 28px;
+}
 .eliminar:hover{ background-color:#ff2424 ;}
 .marcar{background-color: #00ced1;}
 .pendiente{background-color: cadetblue;  margin-left: 10px;}
+.listadopendientes a{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-
+.resultados{
+  width: 90%;
+  margin: auto;
+}
 
 li{list-style: none;}
 a {
