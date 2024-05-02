@@ -12,6 +12,9 @@ const settings = {
     slidesToShow: 6,
     slidesToScroll: 1
 }
+if (window.innerWidth < 768) { 
+    settings.slidesToShow = 2; 
+}
 function Relacionados({genero, autor}){
     const { BuscarLibrosGenero, BuscarLibrosAutor  } = useContext(LibrosContext); 
     const [relacionadosgenero, setRelacionadosgenero] = useState([]);

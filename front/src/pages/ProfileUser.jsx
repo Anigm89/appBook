@@ -46,7 +46,7 @@ import ReactPaginate from 'react-paginate';
                 <h2>Mis libros leídos</h2>
                 {leidos && leidos.length > 0 ?
                 (
-                    <ul>
+                    <ul className="leidosperfil">
                     {
                         currentPageBooks.map((leido, index) =>(
                             <li key={index} className="card">

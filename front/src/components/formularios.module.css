@@ -36,3 +36,8 @@
 
 
 .add{background-color: #00ced1; margin-top: 15px;}
+
+@media screen and (max-width:780px){
+    .formulario{width: 98%;}
+    .bloques{font-size: 14px;}
+}

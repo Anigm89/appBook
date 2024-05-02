@@ -44,7 +44,7 @@ function LibrosPendientes({uid, actualizarLeidos, token}){
         <>
         <div >
         {pendientes.length > 0 ?
-            (<ul>
+            (<ul className="ullistapendientes">
                 {pendientes.map((pendiente, index) =>(
                     <li key={index} className="listadopendientes">
                         <Link to={`/${pendiente.id_libro}`}>

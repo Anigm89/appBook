@@ -34,9 +34,9 @@ function FormLogIn(){
             <div className={styles.flotante}>
                 <h3> Inicia sesión:</h3>
                 <form onSubmit={handleSubmit}>
-                    <label>Email :</label>
-                    <input type="email"  placeholder="Correo Electronico" value={email} onChange={e => setEmail(e.target.value)} required />
-                    <label htmlFor="password">Contraseña :</label>
+                    <label>Email:</label>
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <label htmlFor="password">Contraseña:</label>
                     <input type="password" id="password" name="password" title="Debe tener al menos 6 caracteres" value={password} onChange={e => setPassword(e.target.value)} required />
                     <button type="submit" className="marcar">Acceder</button>
                 </form>

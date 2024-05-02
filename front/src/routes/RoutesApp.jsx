@@ -65,13 +65,16 @@ function RoutesApp () {
 
                 </>
 
-            )}
-
-           
+            )}         
           </Routes>
         }
-        
       </div>
+      <footer>
+        <p>Proyecto creado y desarrollado por Ani González Moreno </p>
+        <a href="https://github.com/Anigm89/appBook">
+          <img src="../src/assets/github.png" alt="github" />
+        </a>
+      </footer>
     </Router>
   )
 }

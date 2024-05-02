@@ -1,6 +1,6 @@
 .sectionlogin{
     width: 100%;
-    height: 100vh;
+    height: 94vh;
     background-image: linear-gradient(rgba(114, 239, 232, 0.74), rgba(114, 239, 232, 0.74)),url('../src/assets/libros.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -32,7 +32,7 @@
     background: #d7feff;
     border: none;
     border-radius: 5px;
-    padding: 5px 15px;
+    padding: 0.3vw 0.97vw;
     margin-bottom: 15px;
 }
 .flotante button{
@@ -41,3 +41,12 @@
 
 }
 .flotante input:focus{outline: 1px solid #00ced1;}
+
+
+
+@media screen and (max-width:780px){
+    .flotante{
+        width: 70vw;
+    }
+    .flotante h3{font-size: 25px;}
+}

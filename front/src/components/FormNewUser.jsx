@@ -43,11 +43,11 @@ function FormNewUser(){
         <>
         <div className={styles.sectionlogin}>
             <div className={styles.flotante}>
-                <h3> Crea tu usuario y contraseña:</h3>
+                <h3> Crea una cuenta:</h3>
                 <form onSubmit={handleSubmit}>
-                    <label>Email :</label>
-                    <input type="email"  placeholder="Correo Electronico" value={email} onChange={e => setEmail(e.target.value)} required />
-                    <label htmlFor="password">Contraseña :</label>
+                    <label>Email:</label>
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <label htmlFor="password">Contraseña:</label>
                     <input type="password" id="password" name="password" value={password} onChange={e => setPassword(e.target.value)} required />
                 
                     <button type="submit" className="marcar">Acceder</button>
