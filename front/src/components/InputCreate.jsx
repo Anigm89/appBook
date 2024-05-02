@@ -76,7 +76,7 @@ function InputCreate ({token}) {
                 </form>
             </div>
             
-            {error && <p>Error: {error}</p>}
+            {error && <p className="error">Error: {error}</p>}
 
         </>
     )

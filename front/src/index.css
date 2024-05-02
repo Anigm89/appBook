@@ -151,7 +151,7 @@ ul{
   flex-wrap: nowrap;
   align-items: center;
 }
-.izq img{width: 15vw;}
+.izq img{width: 21vw;}
 .izq h2, .izq h3, .izq h4{ margin: 5px;}
 .izq h2{font-size: 1.8vw;}
 .detalles{
@@ -207,6 +207,13 @@ ul{
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.listadopendientes a img{
+  width: 150px;
+  height: 216px;
+}
+.listadopendientes button{
+  padding: 0.6em 0.2em;
 }
 
 .resultados{

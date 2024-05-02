@@ -1,9 +1,8 @@
 import { useState } from "react";
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../fb';
-import { NavLink, useNavigate } from 'react-router-dom';
-
-
+import { useNavigate } from 'react-router-dom';
+import styles from '../components/login.module.css'
 
 function FormNewUser(){
 
@@ -18,12 +17,7 @@ function FormNewUser(){
         try{
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
-            console.log('user',user);
-
-
-            console.log('uid', user.uid)
-
-
+            
             const urlApi= 'http://localhost:3000/createUser';
             await fetch(urlApi, {
                 method: 'POST',
@@ -47,20 +41,20 @@ function FormNewUser(){
 
     return(
         <>
-        <form onSubmit={handleSubmit}>
-            <h3> Crea tu usuario y contraseña:</h3>
-            <label>Email :</label>
-            <input type="email"  placeholder="Correo Electronico" value={email} onChange={e => setEmail(e.target.value)} required />
-            <label htmlFor="password">Contraseña :</label>
-            <input type="password" id="password" name="password" value={password} onChange={e => setPassword(e.target.value)} required />
-         
-            <button type="submit" id="btnLogin">Acceder</button>
-            <p>{email} , {password} </p>
-            {email ? 
-            <p>Usuario {email} creado con éxito </p>
-            : <p></p>
-            }
-        </form>
+        <div className={styles.sectionlogin}>
+            <div className={styles.flotante}>
+                <h3> Crea tu usuario y contraseña:</h3>
+                <form onSubmit={handleSubmit}>
+                    <label>Email :</label>
+                    <input type="email"  placeholder="Correo Electronico" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <label htmlFor="password">Contraseña :</label>
+                    <input type="password" id="password" name="password" value={password} onChange={e => setPassword(e.target.value)} required />
+                
+                    <button type="submit" className="marcar">Acceder</button>
+                </form>
+                
+            </div>
+        </div>
         </>
     )
 }

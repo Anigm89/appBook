@@ -1,6 +1,7 @@
 import { LibrosContext } from '../hooks/LibrosContext';
 import { useContext, useState} from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import styles from '../components/formularios.module.css'
 
 
 const EditarLibro = ({token}) => {
@@ -46,29 +47,45 @@ const handleUpdate = async (e) => {
 
 return(
     <>
-    <h3>Edita este libro</h3>
-    <form onSubmit={handleUpdate}>
-        <label>Título:</label>
-        <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
-        <label>Subtítulo: </label>
-        <input type="text" placeholder="subtitulo" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
-        <label>Autor:</label>
-        <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
-        <label>Sinopsis:</label>
-        <textarea type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
-        <label>Imagen:</label>
-        <input type="text" placeholder="imagen" value={imagen} onChange={e => setImagen(e.target.value)} />
-        <label>Nº de Páginas:</label>
-        <input type="number" placeholder="nº de páginas" value={paginas} onChange={e => setPaginas(e.target.value)} />
-        <label>Género:</label>
-        <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
-        <label>Palabras Clave:</label>
-        <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
-
-        <button type="submit">Guardar</button>
-    </form>
-    {error && <p>Error: {error}</p>}
-
+    <div className={styles.formulario}>
+        <h3>Edita este libro</h3>
+        <form onSubmit={handleUpdate}>
+            <div className={styles.bloques}> 
+                <label>Título:</label>
+                <input type="text" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)}  required />
+            </div>
+            <div className={styles.bloques}>
+                <label>Subtítulo: </label>
+                <input type="text" placeholder="subtitulo" value={subtitulo} onChange={e => setSubtitulo(e.target.value)} />
+            </div>
+            <div className={styles.bloques}>  
+                <label>Autor:</label>
+                <input type="text" placeholder="autor" value={autor} onChange={e => setAutor(e.target.value)} required />
+            </div>
+            <div className={styles.bloques}>
+                <label>Sinopsis:</label>
+                <textarea type="text" placeholder="" value={sinopsis} onChange={e => setSinopsis(e.target.value)} />
+            </div>
+            <div className={styles.bloques}>
+                <label>Imagen:</label>
+                <input type="text" placeholder="imagen" value={imagen} onChange={e => setImagen(e.target.value)} />
+            </div>
+            <div className={styles.bloques}>
+                <label>Nº de Páginas:</label>
+                <input type="number" placeholder="nº de páginas" value={paginas} onChange={e => setPaginas(e.target.value)} />
+            </div>
+            <div className={styles.bloques}>
+                <label>Género:</label>
+                <input type="text" placeholder="genero" value={genero} onChange={e => setGenero(e.target.value)} required />
+            </div>
+            <div className={styles.bloques}>
+            <label>Palabras Clave:</label>
+            <textarea type="text" placeholder="tesoro, viaje ..." value={keywords} onChange={e => setKeywords(e.target.value)} />
+            </div>
+            <button type="submit" className='marcar'>Guardar</button>
+        </form>
+        {error && <p className='error'>Error: {error}</p>}
+    </div>
 </>
 )
 
