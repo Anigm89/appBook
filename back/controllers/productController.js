@@ -13,7 +13,7 @@ const BookController = {
     },
     async getById(req, res) {
         try {
-            const id = req.params.id;
+            const id = req.params.id; 
             const [bookId] = await pool.query(`SELECT * FROM libros where id = ${id}`);
             res.json(bookId[0])
         } catch (error) {

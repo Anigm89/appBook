@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect} from "react";
 import { LibrosContext } from '../hooks/LibrosContext';
-import { Link } from "react-router-dom";
 
 
 function BuscadorGenero({onSearchGenero }){

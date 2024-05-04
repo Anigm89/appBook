@@ -20,29 +20,29 @@ const EditarLibro = ({token}) => {
     
 
 
-const [titulo, setTitulo] = useState(libro.titulo);
-const [ subtitulo, setSubtitulo ] = useState(libro.subtitulo);
-const [ autor, setAutor ] = useState(libro.autor);
-const [ sinopsis, setSinopsis ] = useState(libro.sinopsis);
-const [ imagen, setImagen] = useState(libro.imagen);
-const [ paginas, setPaginas] = useState(libro.paginas);
-const [ genero, setGenero] = useState(libro.genero);
-const [ keywords, setKeywords] = useState(libro.keywords);
-const [ error, setError] = useState(null);
+    const [titulo, setTitulo] = useState(libro.titulo);
+    const [ subtitulo, setSubtitulo ] = useState(libro.subtitulo);
+    const [ autor, setAutor ] = useState(libro.autor);
+    const [ sinopsis, setSinopsis ] = useState(libro.sinopsis);
+    const [ imagen, setImagen] = useState(libro.imagen);
+    const [ paginas, setPaginas] = useState(libro.paginas);
+    const [ genero, setGenero] = useState(libro.genero);
+    const [ keywords, setKeywords] = useState(libro.keywords);
+    const [ error, setError] = useState(null);
 
 
 
-const handleUpdate = async (e) => {
-    e.preventDefault();
-    try{  
-        await updateBook(id, titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token);
-        navigate(`/${id}`)
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try{  
+            await updateBook(id, titulo, subtitulo, autor, sinopsis, imagen, paginas, genero, keywords, token);
+            navigate(`/${id}`)
+        }
+        catch(err){
+            console.log(err)
+            setError(err)
+        }
     }
-    catch(err){
-        console.log(err)
-        setError(err)
-    }
-}
 
 
 return(

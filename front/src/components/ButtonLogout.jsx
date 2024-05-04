@@ -1,4 +1,3 @@
-//import { Auth } from '../hooks/AuthContext.jsx'; 
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../fb.js';
 import { signOut } from "firebase/auth";
@@ -19,7 +18,7 @@ const ButtonLogout = () => {
   
     signOut(auth).then(() => {
         navigate("/");
-        console.log("Signed out successfully")
+        console.log("Se ha cerrado sesión ")
     })
     .catch((error) => {
         console.log('error al cerrar sesion', error)
