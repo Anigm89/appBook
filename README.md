@@ -3,9 +3,14 @@ AppBook es una aplicación de libros que utiliza una base de datos propia. Esta 
 En esta app un usuario puede registrase y marcar libros como leídos o pendientes por leer, luego en su perfil puede ver todos los libros que ha marcado como leídos y los marcados como pendientes.
 También puede añadir libros si todavía no están en la bbdd de la aplicación, pero solo el usuario administrador de la app puede editar libros o eliminarlos.
 
+AppBook: https://appbooks.netlify.app/
+
 ## Repositorios 
 En este repositorio está todo y funciona en localhost ya que para publicarlo he tenido que modificar algunas cosas.
 Para el back-end publicado es este: https://github.com/Anigm89/Back_appBook
 Front publicado: https://github.com/Anigm89/Front_appBook
 
-
+## A futuro
+En un futuro en la app se podrán valorar los libros.
+En la home aparecerá una sección con los libros mejor valorados y otra con los más leídos.
+También se conectará con la API de Google Libros y buscará en ella libros por título y si no están en la BBDD se podrán añadir a ella sin tener que rellenar un formulario. Además, mejoraré la parte de libros relacionados.
