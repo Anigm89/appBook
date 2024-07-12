@@ -12,6 +12,6 @@ Front publicado: https://github.com/Anigm89/Front_appBook
 
 ## A futuro
 En un futuro en la app se podrán valorar los libros. ✅<br>
-En la home aparecerá una sección con los libros mejor valorados y otra con los más leídos.<br>
+En la home aparecerá una sección con los libros mejor valorados y otra con los más leídos. ✅<br>
 También se conectará con la API de Google Libros y buscará en ella libros por título y si no están en la BBDD se podrán añadir a ella sin tener que rellenar un formulario. <br>
 Además, mejoraré la parte de libros relacionados. ✅
